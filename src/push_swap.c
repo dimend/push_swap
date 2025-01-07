@@ -6,21 +6,31 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:16 by dimendon          #+#    #+#             */
-/*   Updated: 2024/12/11 19:01:48 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/07 16:06:46 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdio.h>
 #include "libft.h"
 
 void print_list(t_list *lst)
 {
     while (lst)
     {
-        printf("%s , ", lst->content);
+        printf("%d , ", lst->content);
         lst = lst->next;
     }
 	printf("\n");
+}
+short int is_sorted(t_list *lst)
+{
+	while(lst && lst->next)
+	{
+		if(lst->content > lst->next->content)
+			return (0);
+		else
+			lst = lst->next;
+	}
+	return (1);
 }
 
 int	main(int argC, char *argV[])
@@ -34,13 +44,16 @@ int	main(int argC, char *argV[])
 
 	while(i < argC)
 	{
-		new_number = ft_lstnew(argV[i]);
+		new_number = ft_lstnew(ft_atoi(argV[i]));
 		ft_lstadd_back(&ahead, new_number);
 		i++;
 	}
 	
-	swapfirsttwo(&ahead);
-	sendfirst(&ahead,&bhead);
+	printf("%d \n", is_sorted(ahead));
+
+	//swapfirsttwo(&ahead);
+	//pushfirst(&ahead,&bhead);
+	//rotatelist(&ahead, -1);
 	
 	printf("STACK A: ");
 	print_list(ahead);

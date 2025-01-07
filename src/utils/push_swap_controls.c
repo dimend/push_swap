@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:12 by dimendon          #+#    #+#             */
-/*   Updated: 2024/12/11 20:02:05 by dimendon         ###   ########.fr       */
+/*   Updated: 2024/12/23 16:08:54 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void swapfirsttwo(t_list **lst)
     }
 }
 
-// Send 1st element to the top of the other stack.
-void sendfirst(t_list **srclst, t_list **destlst)
+// Push first element to the top of the other stack.
+void pushfirst(t_list **srclst, t_list **destlst)
 {
     t_list *first;
     
@@ -41,8 +41,31 @@ void sendfirst(t_list **srclst, t_list **destlst)
     }
 }
 
-// // Shift up/down all elements of stack by 1.
-// void upelements()
-// {
+// Shift positions by 1 either up or down.
+void rotatelist(t_list **srclst, short int direction)
+{
+    t_list *last;
+    t_list *second_last;
 
-// }
+    if (*srclst == NULL || (*srclst)->next == NULL)
+        return;
+
+    second_last = NULL;
+    last = *srclst;
+    if (direction == -1)
+    {
+        ft_lstadd_back(srclst, last);
+        *srclst = (*srclst)->next;
+        last->next = NULL;
+    }
+    while (last->next != NULL)
+    {
+        second_last = last;
+        last = last->next;
+    }
+    if (direction == 1)
+    {
+        second_last->next = NULL;
+        ft_lstadd_front(srclst, last);
+    }
+}
