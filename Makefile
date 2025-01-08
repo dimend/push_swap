@@ -2,7 +2,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -I./includes
 
-LIBFT = lib/libft.a
+LIBFT = lib/libft.a lib/libftprintf.a
 
 TARGET = push_swap
 
@@ -17,7 +17,7 @@ HEADERS = includes/libft.h
 all: $(TARGET)
 
 $(TARGET): $(OBJS) $(LIBFT)
-	$(CC) $(CFLAGS) $(OBJS) -L./lib -lft -o $(TARGET)
+	$(CC) $(CFLAGS) $(OBJS) -L./lib -lft -lftprintf -o $(TARGET)
 
 %.o: %.c $(HEADERS)
 	$(CC) $(CFLAGS) -c $< -o $@

@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 typedef struct s_list
 {
@@ -26,9 +25,10 @@ typedef struct s_list
 t_list	*ft_lstnew(int content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
-void	swapfirsttwo(t_list **lst);
-void	pushfirst(t_list **srclst, t_list **destlst);
-void	rotatelist(t_list **srclst, short int direction);
-int	ft_atoi(const char *str);
+int		ft_atoi(const char *str);
+int		ft_printf(const char *s, ...);
+void	swapfirsttwo(t_list **lst, char listname);
+void	pushfirst(t_list **srclst, t_list **destlst, char listname);
+void	rotatelist(t_list **srclst, short int direction, char listname);
 
 #endif

@@ -16,10 +16,10 @@ void print_list(t_list *lst)
 {
     while (lst)
     {
-        printf("%d , ", lst->content);
+        ft_printf("%d , ", lst->content);
         lst = lst->next;
     }
-	printf("\n");
+	ft_printf("\n");
 }
 short int is_sorted(t_list *lst)
 {
@@ -35,8 +35,8 @@ short int is_sorted(t_list *lst)
 
 int	main(int argC, char *argV[])
 {	
-	t_list *ahead = NULL;
-	t_list *bhead = NULL;
+	t_list *a = NULL;
+	t_list *b = NULL;
 	t_list *new_number;
 	int i;
 
@@ -45,18 +45,31 @@ int	main(int argC, char *argV[])
 	while(i < argC)
 	{
 		new_number = ft_lstnew(ft_atoi(argV[i]));
-		ft_lstadd_back(&ahead, new_number);
+		ft_lstadd_back(&a, new_number);
 		i++;
 	}
 	
-	printf("%d \n", is_sorted(ahead));
+	while(is_sorted(a) != 1)
+	{
+		if((a->next->content > a->content) && (a->next->content > a->next->next->content))
+		{
+			if(a->content < a->next->next->content)
+				swapfirsttwo(&a, 'a');
+			else
+				rotatelist(&a,1,'a');
+		}
+		if((a->content > a->next->content) && (a->content > a->next->next->content))
+			rotatelist(&a,-1,'a');
+		if((a->content > a->next->content))
+			swapfirsttwo(&a, 'a');
+	}
 
-	//swapfirsttwo(&ahead);
-	//pushfirst(&ahead,&bhead);
-	//rotatelist(&ahead, -1);
+	//swapfirsttwo(&a);
+	//pushfirst(&a,&b);
+	//rotatelist(&a, -1);
 	
-	printf("STACK A: ");
-	print_list(ahead);
-	printf("STACK B: ");
-	print_list(bhead);
+	ft_printf("STACK A: ");
+	print_list(a);
+	ft_printf("STACK B: ");
+	print_list(b);
 }
