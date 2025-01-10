@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:39:49 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/07 14:47:48 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/10 15:13:11 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,5 +30,6 @@ int		ft_printf(const char *s, ...);
 void	swapfirsttwo(t_list **lst, char listname);
 void	pushfirst(t_list **srclst, t_list **destlst, char listname);
 void	rotatelist(t_list **srclst, short int direction, char listname);
+void	small_sort(t_list **stack);
 
 #endif

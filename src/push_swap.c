@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:16 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/07 16:06:46 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/10 16:26:49 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,17 +20,6 @@ void print_list(t_list *lst)
         lst = lst->next;
     }
 	ft_printf("\n");
-}
-short int is_sorted(t_list *lst)
-{
-	while(lst && lst->next)
-	{
-		if(lst->content > lst->next->content)
-			return (0);
-		else
-			lst = lst->next;
-	}
-	return (1);
 }
 
 int	main(int argC, char *argV[])
@@ -49,24 +38,12 @@ int	main(int argC, char *argV[])
 		i++;
 	}
 	
-	while(is_sorted(a) != 1)
-	{
-		if((a->next->content > a->content) && (a->next->content > a->next->next->content))
-		{
-			if(a->content < a->next->next->content)
-				swapfirsttwo(&a, 'a');
-			else
-				rotatelist(&a,1,'a');
-		}
-		if((a->content > a->next->content) && (a->content > a->next->next->content))
-			rotatelist(&a,-1,'a');
-		if((a->content > a->next->content))
-			swapfirsttwo(&a, 'a');
-	}
+	//if(argC == 4)
+	//	small_sort(&a);
 
-	//swapfirsttwo(&a);
-	//pushfirst(&a,&b);
-	//rotatelist(&a, -1);
+	//swapfirsttwo(&a,'a');
+	//pushfirst(&a,&b,'a');
+	//rotatelist(&a, -1, 'a');
 	
 	ft_printf("STACK A: ");
 	print_list(a);

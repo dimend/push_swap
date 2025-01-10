@@ -8,7 +8,8 @@ TARGET = push_swap
 
 SRCS =	src/push_swap.c \
 	src/utils/ft_lstnew_bonus.c \
-	src/utils/push_swap_controls.c
+	src/utils/push_swap_controls.c \
+	src/utils/sorting.c
 
 OBJS = $(SRCS:.c=.o)
 
