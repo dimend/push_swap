@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:39:49 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/10 15:13:11 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/14 17:33:05 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct s_list
 t_list	*ft_lstnew(int content);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
+int		ft_lstsize(t_list *lst);
 int		ft_atoi(const char *str);
 int		ft_printf(const char *s, ...);
 void	swapfirsttwo(t_list **lst, char listname);
