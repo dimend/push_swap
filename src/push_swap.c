@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:16 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/14 18:58:13 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/15 20:19:36 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,42 +16,42 @@ void print_list(t_list *lst)
 {
     while (lst)
     {
-        ft_printf("%d , ", lst->content);
+        ft_printf("%d - ",lst->content);
         lst = lst->next;
     }
 	ft_printf("\n");
 }
-void calc_cost(t_list **lsta, t_list **lstb)
+void set_index(t_list **lst)
 {
-	int index;
-	int cost;
-	t_list *temp_b;
+    int index;
+    int lstsize;
+    t_list *temp;
+    t_list *max_node;
 
-	temp_b = *lstb;
-	cost = ft_lstsize(temp_b);
-	index = 0;
-	while(temp_b)
-	{
-		if( (ft_lstsize(temp_b) - index) < cost)
-			cost = ft_lstsize(temp_b) - index;
-		index++;
-		temp_b = temp_b->next;
+    index = 1;
+    lstsize = ft_lstsize(*lst);
 
-		ft_printf("%d" , cost);
-		if(cost == 0)
-			pushfirst(lsta,lstb,'a');
-		if(cost == 1)
-		{
-			rotatelist(lstb, 1, 'b');
-			pushfirst(lsta,lstb,'a');
-		}
-		if(cost == 2)
-		{
-			rotatelist(lstb, 1, 'b');
-			rotatelist(lstb, 1, 'b');
-			pushfirst(lsta,lstb,'a');
-		}	
-	}
+    while (index <= lstsize)
+    {
+        temp = *lst;
+        max_node = NULL;
+		
+        while (temp)
+        {
+            if (temp->index == 0 && (max_node == NULL || temp->content > max_node->content))
+                max_node = temp;
+            temp = temp->next;
+        }
+        if (max_node != NULL)
+        {
+            max_node->index = index;
+            index++;
+        }
+    }
+}
+void lowest_cost(t_list **lsta, t_list **lstb)
+{
+
 }
 
 int	main(int argC, char *argV[])
@@ -69,14 +69,14 @@ int	main(int argC, char *argV[])
 		ft_lstadd_back(&a, new_number);
 		i++;
 	}
+
 	
-	if(argC > 4)
-	{
-		pushfirst(&a,&b,'a');
-		pushfirst(&a,&b,'a');
-		calc_cost(&a,&b);
-		
-	}
+	set_index(&a);
+
+	// pushfirst(&a,&b,'a');
+	// pushfirst(&a,&b,'a');
+	
+	// lowest_cost(&a,&b);
 
 	//swapfirsttwo(&a,'a');
 	//pushfirst(&a,&b,'a');
