@@ -12,15 +12,33 @@
 
 #include "libft.h"
 
+int get_highest(t_list *lst)
+{  
+    int highest;
+
+    highest = lst->index;
+
+    while (lst)
+    {
+        if (lst->index > highest)
+            highest = lst->index;
+  
+        lst = lst->next;
+    }
+    
+    return (highest);
+}
+
 void print_list(t_list *lst)
 {
     while (lst)
     {
-        ft_printf("%d - ",lst->content);
+        ft_printf("%d - %d ,",lst->index,lst->content);
         lst = lst->next;
     }
 	ft_printf("\n");
 }
+
 void set_index(t_list **lst)
 {
     int index;
@@ -38,7 +56,7 @@ void set_index(t_list **lst)
 		
         while (temp)
         {
-            if (temp->index == 0 && (max_node == NULL || temp->content > max_node->content))
+            if (temp->index == 0 && (max_node == NULL || temp->content < max_node->content))
                 max_node = temp;
             temp = temp->next;
         }
@@ -49,7 +67,28 @@ void set_index(t_list **lst)
         }
     }
 }
-void lowest_cost(t_list **lsta, t_list **lstb)
+
+int cost_to_top(t_list *lst, int index)
+{
+    int cost;
+    int lstsize;
+
+    cost = 0;
+    lstsize  = ft_lstsize(lst);
+    while(lst)
+    {
+        if(lst->index == index)
+            break;
+        cost++;
+        lst = lst->next;
+    }
+
+    if(cost > lstsize/2)
+        cost = lstsize - cost;
+        
+    return (cost);
+}
+int total_cost()
 {
 
 }
@@ -69,14 +108,11 @@ int	main(int argC, char *argV[])
 		ft_lstadd_back(&a, new_number);
 		i++;
 	}
-
-	
+    
 	set_index(&a);
-
+    
+    
 	// pushfirst(&a,&b,'a');
-	// pushfirst(&a,&b,'a');
-	
-	// lowest_cost(&a,&b);
 
 	//swapfirsttwo(&a,'a');
 	//pushfirst(&a,&b,'a');
