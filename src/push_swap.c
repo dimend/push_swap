@@ -12,28 +12,11 @@
 
 #include "libft.h"
 
-int get_highest(t_list *lst)
-{  
-    int highest;
-
-    highest = lst->index;
-
-    while (lst)
-    {
-        if (lst->index > highest)
-            highest = lst->index;
-  
-        lst = lst->next;
-    }
-    
-    return (highest);
-}
-
 void print_list(t_list *lst)
 {
     while (lst)
     {
-        ft_printf("%d - %d ,",lst->index,lst->content);
+        ft_printf("%d - %d , ",lst->index,lst->content);
         lst = lst->next;
     }
 	ft_printf("\n");
@@ -88,9 +71,50 @@ int cost_to_top(t_list *lst, int index)
         
     return (cost);
 }
-int total_cost()
-{
+int get_highest(t_list *lst)
+{  
+    int highest;
 
+    highest = lst->index;
+
+    while (lst)
+    {
+        if (lst->index > highest)
+            highest = lst->index;
+  
+        lst = lst->next;
+    }
+    
+    return (highest);
+}
+
+void total_cost(t_list **stacka, t_list **stackb)
+{
+    t_list *temp_a;
+    int highest;
+    int cost;
+    int cheapest;
+    int min_cost;
+
+    highest = get_highest(*stackb);
+    temp_a = *stacka;
+    min_cost = 2147483647;
+    cheapest = -1;
+
+    while (temp_a)
+    {
+        cost = cost_to_top(*stackb, highest);
+        cost += cost_to_top(*stacka, temp_a->index);
+        ft_printf("COST - %d\n", cost+1);
+
+        if (cost < min_cost)
+        {
+            min_cost = cost;
+            cheapest = temp_a->index;
+        }
+        temp_a = temp_a->next;
+    }
+    ft_printf("CHEAPEST COST - %d, INDEX - %d\n", min_cost+1, cheapest);
 }
 
 int	main(int argC, char *argV[])
@@ -110,9 +134,10 @@ int	main(int argC, char *argV[])
 	}
     
 	set_index(&a);
+    pushfirst(&a,&b,'a');
+    pushfirst(&a,&b,'a');
+    total_cost(&a,&b);
     
-    
-	// pushfirst(&a,&b,'a');
 
 	//swapfirsttwo(&a,'a');
 	//pushfirst(&a,&b,'a');
