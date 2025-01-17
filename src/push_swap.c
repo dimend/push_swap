@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:16 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/15 20:19:36 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:42:04 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,11 @@ void set_index(t_list **lst)
 
     index = 1;
     lstsize = ft_lstsize(*lst);
-
     while (index <= lstsize)
     {
+        ft_printf("%d - %d\n",index, lstsize);
         temp = *lst;
         max_node = NULL;
-		
         while (temp)
         {
             if (temp->index == 0 && (max_node == NULL || temp->content < max_node->content))
@@ -51,26 +50,26 @@ void set_index(t_list **lst)
     }
 }
 
-int cost_to_top(t_list *lst, int index)
-{
-    int cost;
-    int lstsize;
+// void set_costtotop(t_list *lst)
+// {
+//     int cost;
+//     int lstsize;
 
-    cost = 0;
-    lstsize  = ft_lstsize(lst);
-    while(lst)
-    {
-        if(lst->index == index)
-            break;
-        cost++;
-        lst = lst->next;
-    }
-
-    if(cost > lstsize/2)
-        cost = lstsize - cost;
-        
-    return (cost);
-}
+//     cost = 0;
+//     lstsize  = ft_lstsize(lst);
+//     while(lst)
+//     {
+//         lst->costtotop = cost;
+//         lst->reverse = 0;
+//         cost++;
+//         if(lst->costtotop > lstsize/2)
+//         {
+//             lst->costtotop = lstsize - lst->costtotop;
+//             lst->reverse = 1;
+//         }
+//         lst = lst->next;
+//     }
+// }
 int get_highest(t_list *lst)
 {  
     int highest;
@@ -88,35 +87,6 @@ int get_highest(t_list *lst)
     return (highest);
 }
 
-void total_cost(t_list **stacka, t_list **stackb)
-{
-    t_list *temp_a;
-    int highest;
-    int cost;
-    int cheapest;
-    int min_cost;
-
-    highest = get_highest(*stackb);
-    temp_a = *stacka;
-    min_cost = 2147483647;
-    cheapest = -1;
-
-    while (temp_a)
-    {
-        cost = cost_to_top(*stackb, highest);
-        cost += cost_to_top(*stacka, temp_a->index);
-        ft_printf("COST - %d\n", cost+1);
-
-        if (cost < min_cost)
-        {
-            min_cost = cost;
-            cheapest = temp_a->index;
-        }
-        temp_a = temp_a->next;
-    }
-    ft_printf("CHEAPEST COST - %d, INDEX - %d\n", min_cost+1, cheapest);
-}
-
 int	main(int argC, char *argV[])
 {	
 	t_list *a = NULL;
@@ -125,7 +95,6 @@ int	main(int argC, char *argV[])
 	int i;
 
 	i = 1;
-
 	while(i < argC)
 	{
 		new_number = ft_lstnew(ft_atoi(argV[i]));
@@ -134,10 +103,7 @@ int	main(int argC, char *argV[])
 	}
     
 	set_index(&a);
-    pushfirst(&a,&b,'a');
-    pushfirst(&a,&b,'a');
-    total_cost(&a,&b);
-    
+    //set_costtotop(a);
 
 	//swapfirsttwo(&a,'a');
 	//pushfirst(&a,&b,'a');

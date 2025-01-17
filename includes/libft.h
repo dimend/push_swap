@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:39:49 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/15 16:51:48 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:43:23 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ typedef struct s_list
 {
 	int			content;
 	int			index;
+	int			costtotop;
+	int			reverse;
 	struct s_list	*next;
 }	t_list;
 
