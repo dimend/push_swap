@@ -16,7 +16,12 @@ void print_list(t_list *lst)
 {
     while (lst)
     {
-        ft_printf("%d - %d , ",lst->index,lst->content);
+        ft_printf("content: %d - ",lst->content);
+        ft_printf("index: %d - ",lst->index);
+        ft_printf("closest: %d - ",lst->closest);
+        ft_printf("costtotop: %d - ",lst->costtotop);
+        ft_printf("reverse: %d \n",lst->reverse);
+        
         lst = lst->next;
     }
 	ft_printf("\n");
@@ -33,7 +38,6 @@ void set_index(t_list **lst)
     lstsize = ft_lstsize(*lst);
     while (index <= lstsize)
     {
-        ft_printf("%d - %d\n",index, lstsize);
         temp = *lst;
         max_node = NULL;
         while (temp)
@@ -50,41 +54,99 @@ void set_index(t_list **lst)
     }
 }
 
-// void set_costtotop(t_list *lst)
-// {
-//     int cost;
-//     int lstsize;
+void set_costtotop(t_list *a, t_list *b)
+{
+     int cost;
+     int lstsize;
 
-//     cost = 0;
-//     lstsize  = ft_lstsize(lst);
-//     while(lst)
-//     {
-//         lst->costtotop = cost;
-//         lst->reverse = 0;
-//         cost++;
-//         if(lst->costtotop > lstsize/2)
-//         {
-//             lst->costtotop = lstsize - lst->costtotop;
-//             lst->reverse = 1;
-//         }
-//         lst = lst->next;
-//     }
-// }
-int get_highest(t_list *lst)
-{  
-    int highest;
+     cost = 0;
+     lstsize  = ft_lstsize(a);
+     while(a)
+     {
+        a->costtotop = cost;
+        a->reverse = 0;
+        cost++;
 
-    highest = lst->index;
+        if(a->costtotop > lstsize/2)
+        {
+            a->costtotop = lstsize - a->costtotop;
+            a->reverse = 1;
+        }
+        a = a->next;
+     }
 
-    while (lst)
+        cost = 0;
+     lstsize  = ft_lstsize(b);
+     while(b)
+     {
+        b->costtotop = cost;
+        b->reverse = 0;
+        cost++;
+
+        if(b->costtotop > lstsize/2)
+        {
+            b->costtotop = lstsize - b->costtotop;
+            b->reverse = 1;
+        }
+        b = b->next;
+     }
+ }
+
+void set_closest(t_list *a, t_list *b)
+{
+    int closest_index;
+    int min_diff;
+    int diff;
+    t_list *temp_b;
+
+    temp_b = b;
+    while (a)
     {
-        if (lst->index > highest)
-            highest = lst->index;
-  
-        lst = lst->next;
+        closest_index = 0;
+        diff = 0;
+        min_diff = 2147483647;
+        temp_b = b;
+        while (temp_b)
+        {
+            diff = abs(temp_b->index - a->index);
+            if (diff < min_diff)
+            {
+                min_diff = diff;
+                closest_index = temp_b->index;
+            }
+            temp_b = temp_b->next;
+        }
+        a->closest = closest_index;
+        a = a->next;
+        temp_b = b;
     }
-    
-    return (highest);
+}
+
+int find_cheapest(t_list *a, t_list *b)
+{  
+    int cost;
+    int cheapest;
+    t_list *temp_b;
+
+    cheapest = 2147483647;
+    cost = 2147483647;
+    while (a)
+    {
+        b = temp_b;
+        while(temp_b)
+        {
+            if((temp_b->index == a->closest) && (temp_b->costtotop + a->costtotop < cost))
+            {
+                cost = temp_b->costtotop + a->costtotop;
+                cheapest = a->index;
+            }
+            temp_b = temp_b->next;
+        }
+        a = a->next;
+        temp_b = b;
+    }
+    ft_printf("cost: %d\n",cost);
+    return (cheapest);
 }
 
 int	main(int argC, char *argV[])
@@ -103,15 +165,34 @@ int	main(int argC, char *argV[])
 	}
     
 	set_index(&a);
-    //set_costtotop(a);
+    pushfirst(&a,&b,'b');
+    pushfirst(&a,&b,'b');
+    set_costtotop(a, b);
+    set_closest(a, b);
+
+    //7 5 2
+    rotatelist(&b, -1, 'b'); 
+    pushfirst(&a,&b,'b');
+    set_costtotop(a, b);
+    set_closest(a, b);
+    
+    //1 7 5 2
+    pushfirst(&a,&b,'b'); 
+    set_costtotop(a, b);
+    set_closest(a, b);
+
+
+
+    ft_printf("CHEAPEST: %d\n",find_cheapest(a, b));
+
 
 	//swapfirsttwo(&a,'a');
 	//pushfirst(&a,&b,'a');
 	//rotatelist(&a, -1, 'a');
 	
-	ft_printf("STACK A: ");
+	ft_printf("STACK A:\n");
 	print_list(a);
-	ft_printf("STACK B: ");
+	ft_printf("STACK B:\n");
 	print_list(b);
 }
 

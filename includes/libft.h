@@ -20,6 +20,7 @@ typedef struct s_list
 {
 	int			content;
 	int			index;
+	int			closest;
 	int			costtotop;
 	int			reverse;
 	struct s_list	*next;

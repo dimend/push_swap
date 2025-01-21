@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstnew_bonus.c                                  :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/12 18:45:53 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/17 19:38:34 by dimendon         ###   ########.fr       */
+/*   Created: 2024/11/13 12:16:24 by dimendon          #+#    #+#             */
+/*   Updated: 2024/11/13 18:33:09 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_lstnew(int content)
+int	ft_lstsize(t_list *lst)
 {
-	t_list	*p;
+	int	count;
 
-	p = (t_list *)malloc(sizeof(t_list));
-	if (!p)
-		return (NULL);
-	p->content = content;
-	p->index = 0;
-	p->closest = 0;
-	p->costtotop = 0;
-	p->reverse = 0;
-	p->next = NULL;
-	return (p);
+	count = 0;
+	while (lst != NULL)
+	{
+		lst = lst->next;
+		count++;
+	}
+	return (count);
 }
