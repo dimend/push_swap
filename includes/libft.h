@@ -35,6 +35,8 @@ int		ft_printf(const char *s, ...);
 void	swapfirsttwo(t_list **lst, char listname);
 void	pushfirst(t_list **srclst, t_list **destlst, char listname);
 void	rotatelist(t_list **srclst, short int direction, char listname);
+void	rotate_both(t_list **a, t_list **b, short int direction);
+short int is_sorted(t_list *stack);
 void	small_sort(t_list **stack);
 
 #endif

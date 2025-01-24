@@ -54,9 +54,9 @@ void rotatelist(t_list **srclst, short int direction, char listname)
 
     second_last = NULL;
     last = *srclst;
-    if (direction == -1)
+    if (direction == 0)
     {
-        ft_printf("r%c\n", listname);
+        if(listname != 'c') ft_printf("r%c\n", listname);
         ft_lstadd_back(srclst, last);
         *srclst = (*srclst)->next;
         last->next = NULL;
@@ -68,8 +68,18 @@ void rotatelist(t_list **srclst, short int direction, char listname)
     }
     if (direction == 1)
     {
-        ft_printf("rr%c\n", listname);
+        if(listname != 'c') ft_printf("rr%c\n", listname);
         second_last->next = NULL;
         ft_lstadd_front(srclst, last);
     }
+}
+
+void rotate_both(t_list **a, t_list **b, short int direction)
+{
+    rotatelist(a, direction, 'c');
+    rotatelist(b, direction, 'c');
+    if (direction == 1)
+        ft_printf("rrr\n");
+    else
+        ft_printf("rr\n");
 }

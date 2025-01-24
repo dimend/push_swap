@@ -24,7 +24,7 @@ void small_sort(t_list **stack)
 				rotatelist(stack,1,'a');
 		}
 		if(((*stack)->content > (*stack)->next->content) && ((*stack)->content > (*stack)->next->next->content))
-			rotatelist(stack,-1,'a');
+			rotatelist(stack,0,'a');
 		if(((*stack)->content > (*stack)->next->content))
 			swapfirsttwo(stack, 'a');
 	}
