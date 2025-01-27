@@ -27,7 +27,7 @@ void print_list(t_list *lst)
     ft_printf("\n");
 }
 
-void set_index(t_list **lst)
+void set_index(t_list *lst)
 {
     int index;
     int lstsize;
@@ -35,10 +35,10 @@ void set_index(t_list **lst)
     t_list *max_node;
 
     index = 1;
-    lstsize = ft_lstsize(*lst);
+    lstsize = ft_lstsize(lst);
     while (index <= lstsize)
     {
-        temp = *lst;
+        temp = lst;
         max_node = NULL;
         while (temp)
         {
@@ -54,123 +54,27 @@ void set_index(t_list **lst)
     }
 }
 
-void set_costtotop(t_list *a, t_list *b)
+void final_sort(t_list **a)
 {
-    int cost;
-    int lstsize;
+    t_list *current;
 
-    cost = 0;
-    lstsize = ft_lstsize(a);
-    while (a)
+    set_costtotop(*a, NULL);
+    
+    current = *a;
+    while (current && current->index != 1) 
+        current = current->next;
+
+    while (current->costtotop > 0)
     {
-        a->costtotop = cost;
-        a->reverse = 0;
-        cost++;
-
-        if (a->costtotop > lstsize / 2)
-        {
-            a->costtotop = lstsize - a->costtotop;
-            a->reverse = 1;
-        }
-        a = a->next;
+        rotatelist(a, current->reverse, 'a');
+        current->costtotop--;
     }
-
-    cost = 0;
-    lstsize = ft_lstsize(b);
-    while (b)
-    {
-        b->costtotop = cost;
-        b->reverse = 0;
-        cost++;
-
-        if (b->costtotop > lstsize / 2)
-        {
-            b->costtotop = lstsize - b->costtotop;
-            b->reverse = 1;
-        }
-        b = b->next;
-    }
-}
-
-void set_closest(t_list *a, t_list *b)
-{
-    int closest_index;
-    int min_diff;
-    int diff;
-    t_list *temp_b;
-
-    temp_b = b;
-    while (a)
-    {
-        closest_index = 0;
-        diff = 0;
-        min_diff = 2147483647;
-        temp_b = b;
-
-        while (temp_b)
-        {
-            if (temp_b->index < a->index)
-            {
-                diff = abs(temp_b->index - a->index);
-                if (diff < min_diff)
-                {
-                    min_diff = diff;
-                    closest_index = temp_b->index;
-                }
-            }
-            temp_b = temp_b->next;
-        }
-        if (closest_index == 0)
-        {
-            closest_index = 1;
-        }
-        a->closest = closest_index;
-        a = a->next;
-    }
-}
-
-int find_cheapest(t_list *a, t_list *b)
-{
-    int temp_cost;
-    int cost;
-    int cheapest;
-    t_list *temp_b;
-
-    cheapest = 2147483647;
-    cost = 2147483647;
-    temp_cost = 0;
-
-    while (a)
-    {
-        temp_b = b;
-        while (temp_b)
-        {
-            if ((temp_b->index == a->closest) || ((a->index == 1 && a->costtotop == 0)))
-            {
-                temp_cost = temp_b->costtotop + a->costtotop;
-                if ((a->reverse == temp_b->reverse) && ((a->costtotop >= 1) && (temp_b->costtotop >= 1)))
-                    temp_cost--;
-
-                if (temp_cost < cost)
-                {
-                    cost = temp_cost;
-                    cheapest = a->index;
-                }
-            }
-            temp_b = temp_b->next;
-        }
-        a = a->next;
-    }
-
-    return (cheapest);
 }
 
 int main(int argC, char *argV[])
 {
     t_list *a = NULL;
     t_list *b = NULL;
-    t_list *temp_a;
-    t_list *temp_b;
     t_list *new_number;
     int i;
 
@@ -186,88 +90,12 @@ int main(int argC, char *argV[])
         small_sort(&a);
     else
     {
-        set_index(&a);
-        pushfirst(&a, &b, 'b');
-        if (ft_lstsize(a) > 3)
-            pushfirst(&a, &b, 'b');
-        set_costtotop(a, b);
-        set_closest(a, b);
-        while (ft_lstsize(a) > 3)
-        {
-            temp_a = a;
-            temp_b = b;
-
-            int cheapest = find_cheapest(a, b);
-
-            temp_a = a;
-            temp_b = b;
-
-            if (temp_a->index != cheapest)
-            {
-                while (temp_a->index != cheapest)
-                    temp_a = temp_a->next;
-            }
-
-            if (temp_a->closest != 1 && temp_a->index != 1)
-            {
-                while (temp_b->index != temp_a->closest)
-                    temp_b = temp_b->next;
-            }
-
-            while (temp_a->costtotop > 0)
-            {
-                rotatelist(&a, temp_a->reverse, 'a');
-                temp_a->costtotop--;
-            }
-            while (temp_b->costtotop > 0)
-            {
-                rotatelist(&b, temp_b->reverse, 'b');
-                temp_b->costtotop--;
-            }
-
-            if (temp_a->costtotop == 0 && temp_b->costtotop == 0)
-            {
-                pushfirst(&a, &b, 'b');
-                set_costtotop(a, b);
-                set_closest(a, b);
-            }
-        }
-
+        set_index(a);
+        while(ft_lstsize(a) > 3)
+            sort_to_b(&a, &b);
         small_sort(&a);
-
-        temp_a = a;
-
-        int smallest_diff = 2147483647;
-
-        
-
-        while (ft_lstsize(b) > 0)
-        {
-            temp_a = a;
-            while (temp_a)
-            {
-                if(b->index - temp_a->index < smallest_diff && b->index - temp_a->index > 0)
-                    smallest_diff = b->index - temp_a->index;
-                temp_a = temp_a->next;
-            }
-            ft_printf("smallest_diff: %d\n", smallest_diff);
-
-            if (a->index - b->index != smallest_diff)
-            {
-                if (b->index == ft_lstsize(a) + ft_lstsize(b))
-                    pushfirst(&b, &a, 'a');
-                else
-                    rotatelist(&a, 1, 'a');
-            }
-            else
-                pushfirst(&b, &a, 'a');
-        }
-        while (a->index != 1)
-            rotatelist(&a, 1, 'a');
+        while(ft_lstsize(b) > 0)
+            sort_to_a(&a, &b);
+        final_sort(&a);
     }
-
-    ft_printf("STACK A:\n");
-    print_list(a);
-    ft_printf("STACK B:\n");
-    print_list(b);
 }

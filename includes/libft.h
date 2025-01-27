@@ -15,6 +15,8 @@
 
 # include <stdlib.h>
 # include <unistd.h>
+# include <stdarg.h>
+# include <stdint.h>
 
 typedef struct s_list
 {
@@ -38,5 +40,14 @@ void	rotatelist(t_list **srclst, short int direction, char listname);
 void	rotate_both(t_list **a, t_list **b, short int direction);
 short int is_sorted(t_list *stack);
 void	small_sort(t_list **stack);
+void	sort_to_b(t_list **a, t_list **b);
+void  	sort_to_a(t_list **a, t_list **b);
+void	set_costtotop(t_list *a, t_list *b);
+void	set_closest(t_list *a, t_list *b);
+int    	find_cheapest(t_list *a, t_list *b);
+void	ft_putchar_fd(char c, int fd, int *count);
+void	ft_putstr_fd(char *s, int fd, int *count);
+void	ft_putnbr_fd(int n, int fd, int *count);
+int		ft_printf(const char *s, ...);
 
 #endif

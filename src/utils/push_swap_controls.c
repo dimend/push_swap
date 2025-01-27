@@ -13,7 +13,6 @@
 
 #include "libft.h"
 
-// Swap the first 2 elements.
 void swapfirsttwo(t_list **lst, char listname)
 {
     t_list *aux;
@@ -28,7 +27,6 @@ void swapfirsttwo(t_list **lst, char listname)
     ft_printf("s%c\n", listname);
 }
 
-// Push first element to the top of the other stack.
 void pushfirst(t_list **srclst, t_list **destlst, char listname)
 {
     t_list *first;
@@ -43,7 +41,6 @@ void pushfirst(t_list **srclst, t_list **destlst, char listname)
     ft_printf("p%c\n", listname);
 }
 
-// Shift positions by 1 either up or down.
 void rotatelist(t_list **srclst, short int direction, char listname)
 {
     t_list *last;
@@ -51,12 +48,11 @@ void rotatelist(t_list **srclst, short int direction, char listname)
 
     if (*srclst == NULL || (*srclst)->next == NULL)
         return;
-
     second_last = NULL;
     last = *srclst;
     if (direction == 0)
     {
-        if(listname != 'c') ft_printf("r%c\n", listname);
+        if(listname != 'r') ft_printf("r%c\n", listname);
         ft_lstadd_back(srclst, last);
         *srclst = (*srclst)->next;
         last->next = NULL;
@@ -68,7 +64,7 @@ void rotatelist(t_list **srclst, short int direction, char listname)
     }
     if (direction == 1)
     {
-        if(listname != 'c') ft_printf("rr%c\n", listname);
+        if(listname != 'r') ft_printf("rr%c\n", listname);
         second_last->next = NULL;
         ft_lstadd_front(srclst, last);
     }
@@ -76,8 +72,8 @@ void rotatelist(t_list **srclst, short int direction, char listname)
 
 void rotate_both(t_list **a, t_list **b, short int direction)
 {
-    rotatelist(a, direction, 'c');
-    rotatelist(b, direction, 'c');
+    rotatelist(a, direction, 'r');
+    rotatelist(b, direction, 'r');
     if (direction == 1)
         ft_printf("rrr\n");
     else
