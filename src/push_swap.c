@@ -54,6 +54,12 @@ void set_index(t_list *lst)
     }
 }
 
+void set_costtotop(t_list *a, t_list *b)
+{
+    calc_costtotop(a, ft_lstsize(a));
+    calc_costtotop(b, ft_lstsize(b));
+}
+
 void final_sort(t_list **a)
 {
     t_list *current;
@@ -86,16 +92,19 @@ int main(int argC, char *argV[])
         i++;
     }
 
-    if (ft_lstsize(a) == 3)
+    if (ft_lstsize(a) < 4)
         small_sort(&a);
     else
     {
-        set_index(a);
-        while(ft_lstsize(a) > 3)
-            sort_to_b(&a, &b);
-        small_sort(&a);
-        while(ft_lstsize(b) > 0)
-            sort_to_a(&a, &b);
-        final_sort(&a);
+        if(is_sorted(a) == 0)
+        {
+            set_index(a);
+            while(ft_lstsize(a) > 3)
+                sort_to_b(&a, &b);
+            small_sort(&a);
+            while(ft_lstsize(b) > 0)
+                sort_to_a(&a, &b);
+            final_sort(&a);
+        }
     }
 }

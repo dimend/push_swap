@@ -79,3 +79,26 @@ void rotate_both(t_list **a, t_list **b, short int direction)
     else
         ft_printf("rr\n");
 }
+
+t_list *find_lowest_diff(t_list **a, t_list **b)
+{
+    t_list *lowest_diff;
+    t_list *temp_a;
+    int diff;
+    int smallest_diff;
+
+    diff = 0;
+    smallest_diff = 2147483647;
+    temp_a = *a;
+    while (temp_a)
+	{
+		diff = (*b)->index - temp_a->index;
+		if (abs(diff) < abs(smallest_diff))
+		{
+			smallest_diff = diff;
+			lowest_diff = temp_a;
+		}
+		temp_a = temp_a->next;
+	}
+    return (lowest_diff);
+}

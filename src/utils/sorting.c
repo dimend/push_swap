@@ -43,19 +43,29 @@ short int is_sorted(t_list *stack)
 
 void small_sort(t_list **stack)
 {
-    while(is_sorted(*stack) != 1)
+	while(is_sorted(*stack) != 1)
 	{
-		if(((*stack)->next->content > (*stack)->content) && ((*stack)->next->content > (*stack)->next->next->content))
+		if(ft_lstsize(*stack) == 2)
 		{
-			if((*stack)->content < (*stack)->next->next->content)
+			if((*stack)->content > (*stack)->next->content)
 				swapfirsttwo(stack, 'a');
-			else
-				rotatelist(stack,1,'a');
 		}
-		if(((*stack)->content > (*stack)->next->content) && ((*stack)->content > (*stack)->next->next->content))
-			rotatelist(stack,0,'a');
-		if(((*stack)->content > (*stack)->next->content))
-			swapfirsttwo(stack, 'a');
+		else
+		{
+			if(((*stack)->next->content > (*stack)->content) 
+			&& ((*stack)->next->content > (*stack)->next->next->content))
+			{
+				if((*stack)->content < (*stack)->next->next->content)
+					swapfirsttwo(stack, 'a');
+				else
+					rotatelist(stack, 1, 'a');
+			}
+			if(((*stack)->content > (*stack)->next->content) 
+			&& ((*stack)->content > (*stack)->next->next->content))
+				rotatelist(stack, 0, 'a');
+			if(((*stack)->content > (*stack)->next->content))
+				swapfirsttwo(stack, 'a');
+		}
 	}
 }
 
@@ -65,9 +75,9 @@ void sort_to_b(t_list **a, t_list **b)
 	t_list *temp_b;
 	int cheapest;
 
-	while(ft_lstsize(*b) < 2 || ft_lstsize(*a) < 3)
+	while(ft_lstsize(*a) > 3 && ft_lstsize(*b) < 2)
 		pushfirst(a, b, 'b');
-
+		
 	set_closest(*a, *b);
 	set_costtotop(*a, *b);
 	temp_a = *a;
@@ -81,7 +91,7 @@ void sort_to_b(t_list **a, t_list **b)
 			temp_b = temp_b->next;
 	}
 	rotate_to_top(temp_a, temp_b, a, b);
-	if (temp_a->costtotop == 0 && temp_b->costtotop == 0)
+	if ((temp_a->costtotop == 0 && temp_b->costtotop == 0) && ft_lstsize(*a) > 3)
 	{
 		pushfirst(a, b, 'b');
 		set_costtotop(*a, *b);
@@ -90,22 +100,9 @@ void sort_to_b(t_list **a, t_list **b)
 
 void sort_to_a(t_list **a, t_list **b)
 {
-	t_list *temp_a;
-	int smallest_diff = 2147483647;
-	int diff;
 	t_list *lowest_diff;
-	temp_a = *a;
 
-	while (temp_a)
-	{
-		diff = (*b)->index - temp_a->index;
-		if (abs(diff) < abs(smallest_diff))
-		{
-			smallest_diff = diff;
-			lowest_diff = temp_a;
-		}
-		temp_a = temp_a->next;
-	}
+	lowest_diff = find_lowest_diff(a, b);
 	set_costtotop(*a, *b);
 	while(lowest_diff->costtotop > 0)
 	{

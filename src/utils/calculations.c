@@ -1,30 +1,35 @@
 #include "libft.h"
 
+int get_min_diff(t_list *a, t_list *b)
+{
+    int diff;
+    int min_diff;
+    int closest_index;
+
+    min_diff = 2147483647;
+    closest_index = 0;
+    while (b)
+    {
+        diff = abs(b->index - a->index);
+        if (diff < min_diff)
+        {
+            min_diff = diff;
+            closest_index = b->index;
+        }
+        b = b->next;
+    }
+
+    return (closest_index);
+}
+
 void set_closest(t_list *a, t_list *b)
 {
     int closest_index;
-    int min_diff;
-    int diff;
-    t_list *temp_b;
 
-    temp_b = b;
+    closest_index = 0;
     while (a)
     {
-        closest_index = 0;
-        diff = 0;
-        min_diff = 2147483647;
-        temp_b = b;
-
-        while (temp_b)
-        {
-                diff = abs(temp_b->index - a->index);
-                if (diff < min_diff)
-                {
-                    min_diff = diff;
-                    closest_index = temp_b->index;
-                }
-            temp_b = temp_b->next;
-        }
+        closest_index = get_min_diff(a, b);
         if (closest_index == 0)
             closest_index = 1;
         a->closest = closest_index;
@@ -32,79 +37,60 @@ void set_closest(t_list *a, t_list *b)
     }
 }
 
-void set_costtotop(t_list *a, t_list *b)
+void calc_costtotop(t_list *lst, int lstsize)
 {
     int cost;
-    int lstsize;
 
     cost = 0;
-    lstsize = ft_lstsize(a);
-    while (a)
+    while (lst)
     {
-        a->costtotop = cost;
-        a->reverse = 0;
+        lst->costtotop = cost;
+        lst->reverse = 0;
         cost++;
 
         if (cost > lstsize / 2)
         {
-            a->costtotop = (lstsize - cost)+1;
-            a->reverse = 1;
+            lst->costtotop = (lstsize - cost)+1;
+            lst->reverse = 1;
         }
-        a = a->next;
+        lst = lst->next;
     }
+}
 
-    if (b != NULL)
+int calc_cheapest(t_list *a, t_list *b, int cheapest)
+{   
+    int temp_cost;
+    int cost;
+
+    cost = 2147483647;
+    temp_cost = 0;
+    while (b)
     {
-        cost = 0;
-        lstsize = ft_lstsize(b);
-        while (b)
+        if ((b->index == a->closest) || ((a->index == 1 && a->costtotop == 0)))
         {
-            b->costtotop = cost;
-            b->reverse = 0;
-            cost++;
-
-            if (b->costtotop > lstsize / 2)
+            temp_cost = b->costtotop + a->costtotop;
+            if ((a->reverse == b->reverse) && ((a->costtotop >= 1) && (b->costtotop >= 1)))
+                temp_cost--;
+            if (temp_cost < cost)
             {
-                b->costtotop = lstsize - b->costtotop;
-                b->reverse = 1;
+                cost = temp_cost;
+                cheapest = a->index;
             }
-            b = b->next;
         }
+        b = b->next;
     }
+    return (cheapest);
 }
 
 int find_cheapest(t_list *a, t_list *b)
 {
-    int temp_cost;
-    int cost;
     int cheapest;
-    t_list *temp_b;
 
-    cheapest = 2147483647;
-    cost = 2147483647;
-    temp_cost = 0;
-
+    cheapest = 0;
     while (a)
     {
-        temp_b = b;
-        while (temp_b)
-        {
-            if ((temp_b->index == a->closest) || ((a->index == 1 && a->costtotop == 0)))
-            {
-                temp_cost = temp_b->costtotop + a->costtotop;
-                if ((a->reverse == temp_b->reverse) && ((a->costtotop >= 1) && (temp_b->costtotop >= 1)))
-                    temp_cost--;
-
-                if (temp_cost < cost)
-                {
-                    cost = temp_cost;
-                    cheapest = a->index;
-                }
-            }
-            temp_b = temp_b->next;
-        }
+        cheapest = calc_cheapest(a, b, cheapest);
         a = a->next;
     }
-
     return (cheapest);
 }
