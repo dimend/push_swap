@@ -1,5 +1,28 @@
 #include "libft.h"
 
+t_list *find_lowest_diff(t_list **a, t_list **b)
+{
+    t_list *lowest_diff;
+    t_list *temp_a;
+    int diff;
+    int smallest_diff;
+
+    diff = 0;
+    smallest_diff = 2147483647;
+    temp_a = *a;
+    while (temp_a)
+	{
+		diff = (*b)->index - temp_a->index;
+		if (abs(diff) < abs(smallest_diff))
+		{
+			smallest_diff = diff;
+			lowest_diff = temp_a;
+		}
+		temp_a = temp_a->next;
+	}
+    return (lowest_diff);
+}
+
 int get_min_diff(t_list *a, t_list *b)
 {
     int diff;
@@ -18,23 +41,7 @@ int get_min_diff(t_list *a, t_list *b)
         }
         b = b->next;
     }
-
     return (closest_index);
-}
-
-void set_closest(t_list *a, t_list *b)
-{
-    int closest_index;
-
-    closest_index = 0;
-    while (a)
-    {
-        closest_index = get_min_diff(a, b);
-        if (closest_index == 0)
-            closest_index = 1;
-        a->closest = closest_index;
-        a = a->next;
-    }
 }
 
 void calc_costtotop(t_list *lst, int lstsize)
@@ -57,40 +64,44 @@ void calc_costtotop(t_list *lst, int lstsize)
     }
 }
 
-int calc_cheapest(t_list *a, t_list *b, int cheapest)
-{   
+int calc_cheapest(t_list *a, t_list *b)
+{
+    int temp_cost;
+    t_list *temp_b;
+
+    temp_cost = 2147483647;
+    temp_b = b;
+    while (temp_b)
+    {
+        if ((temp_b->index == a->closest) || ((a->index == 1 && a->costtotop == 0)))
+        {
+            int current_cost = temp_b->costtotop + a->costtotop;
+            if ((a->reverse == temp_b->reverse) && ((a->costtotop >= 1) && (temp_b->costtotop >= 1)))
+                current_cost--;
+            if (current_cost < temp_cost)
+                temp_cost = current_cost;
+        }
+        temp_b = temp_b->next;
+    }
+    return temp_cost;
+}
+
+t_list *find_cheapest(t_list *a, t_list *b)
+{
+    t_list *cheapest_node;
     int temp_cost;
     int cost;
 
     cost = 2147483647;
-    temp_cost = 0;
-    while (b)
-    {
-        if ((b->index == a->closest) || ((a->index == 1 && a->costtotop == 0)))
-        {
-            temp_cost = b->costtotop + a->costtotop;
-            if ((a->reverse == b->reverse) && ((a->costtotop >= 1) && (b->costtotop >= 1)))
-                temp_cost--;
-            if (temp_cost < cost)
-            {
-                cost = temp_cost;
-                cheapest = a->index;
-            }
-        }
-        b = b->next;
-    }
-    return (cheapest);
-}
-
-int find_cheapest(t_list *a, t_list *b)
-{
-    int cheapest;
-
-    cheapest = 0;
     while (a)
     {
-        cheapest = calc_cheapest(a, b, cheapest);
+        temp_cost = calc_cheapest(a, b);
+        if (temp_cost < cost)
+        {
+            cost = temp_cost;
+            cheapest_node = a;
+        }
         a = a->next;
     }
-    return (cheapest);
+    return (cheapest_node);
 }

@@ -5,18 +5,19 @@ CFLAGS = -Wall -Wextra -Werror -g -I./includes
 TARGET = push_swap
 
 SRCS =	src/push_swap.c \
-	src/utils/ft_atoi.c \
-	src/utils/ft_lstadd_back_bonus.c \
-	src/utils/ft_lstadd_front_bonus.c \
-	src/utils/ft_lstnew_bonus.c \
-	src/utils/ft_lstsize_bonus.c \
-	src/utils/push_swap_controls.c \
-	src/utils/sorting.c \
+	src/utils/libft/ft_atoi.c \
+	src/utils/libft/ft_lstadd_back_bonus.c \
+	src/utils/libft/ft_lstclear_bonus.c \
+	src/utils/libft/ft_lstadd_front_bonus.c \
+	src/utils/libft/ft_lstnew_bonus.c \
+	src/utils/libft/ft_lstsize_bonus.c \
+	src/utils/libft/ft_putchar_fd.c \
+	src/utils/libft/ft_putstr_fd.c \
+	src/utils/libft/ft_putnbr_fd.c \
+	src/utils/ft_printf/ft_printf.c \
 	src/utils/calculations.c \
-	src/utils/ft_putchar_fd.c \
-	src/utils/ft_putstr_fd.c \
-	src/utils/ft_putnbr_fd.c \
-	src/utils/ft_printf.c
+	src/utils/push_swap_controls.c \
+	src/utils/sorting.c
 
 OBJS = $(SRCS:.c=.o)
 

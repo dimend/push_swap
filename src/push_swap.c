@@ -12,19 +12,19 @@
 
 #include "libft.h"
 
-void print_list(t_list *lst)
+void set_closest(t_list *a, t_list *b)
 {
-    while (lst)
-    {
-        ft_printf("content: %d - ", lst->content);
-        ft_printf("index: %d - ", lst->index);
-        ft_printf("closest: %d - ", lst->closest);
-        ft_printf("costtotop: %d - ", lst->costtotop);
-        ft_printf("reverse: %d \n", lst->reverse);
+    int closest_index;
 
-        lst = lst->next;
+    closest_index = 0;
+    while (a)
+    {
+        closest_index = get_min_diff(a, b);
+        if (closest_index == 0)
+            closest_index = 1;
+        a->closest = closest_index;
+        a = a->next;
     }
-    ft_printf("\n");
 }
 
 void set_index(t_list *lst)
@@ -91,7 +91,6 @@ int main(int argC, char *argV[])
         ft_lstadd_back(&a, new_number);
         i++;
     }
-
     if (ft_lstsize(a) < 4)
         small_sort(&a);
     else
@@ -99,12 +98,10 @@ int main(int argC, char *argV[])
         if(is_sorted(a) == 0)
         {
             set_index(a);
-            while(ft_lstsize(a) > 3)
-                sort_to_b(&a, &b);
-            small_sort(&a);
-            while(ft_lstsize(b) > 0)
-                sort_to_a(&a, &b);
+            sort_to_b(&a, &b);
+            sort_to_a(&a, &b);
             final_sort(&a);
         }
     }
+    ft_lstclear(&a);
 }
