@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:16 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/17 19:42:04 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:10:55 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void set_closest(t_list *a, t_list *b)
     closest_index = 0;
     while (a)
     {
-        closest_index = get_min_diff(a, b);
+        closest_index = get_closest_index(a, b);
         if (closest_index == 0)
             closest_index = 1;
         a->closest = closest_index;

@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:39:49 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/17 19:43:23 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/29 17:11:15 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ void	small_sort(t_list **stack);
 void	sort_to_b(t_list **a, t_list **b);
 void	sort_to_a(t_list **a, t_list **b);
 t_list	*find_lowest_diff(t_list **a, t_list **b);
-int		get_min_diff(t_list *a, t_list *b);
+int		get_closest_index(t_list *a, t_list *b);
 void	set_costtotop(t_list *a, t_list *b);
 void	calc_costtotop(t_list *lst, int lstsize);
 void	set_closest(t_list *a, t_list *b);

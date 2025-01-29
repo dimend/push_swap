@@ -13,8 +13,9 @@ t_list *find_lowest_diff(t_list **a, t_list **b)
     while (temp_a)
 	{
 		diff = (*b)->index - temp_a->index;
-		if (abs(diff) < abs(smallest_diff))
-		{
+            if (abs(diff) < abs(smallest_diff) || 
+                (abs(diff) == abs(smallest_diff) && diff < smallest_diff))
+            {
 			smallest_diff = diff;
 			lowest_diff = temp_a;
 		}
@@ -23,7 +24,7 @@ t_list *find_lowest_diff(t_list **a, t_list **b)
     return (lowest_diff);
 }
 
-int get_min_diff(t_list *a, t_list *b)
+int get_closest_index(t_list *a, t_list *b)
 {
     int diff;
     int min_diff;
@@ -48,18 +49,23 @@ void calc_costtotop(t_list *lst, int lstsize)
 {
     int cost;
 
+    if(!lstsize%2)
+        lstsize++;
+
     cost = 0;
     while (lst)
     {
-        lst->costtotop = cost;
-        lst->reverse = 0;
-        cost++;
-
         if (cost > lstsize / 2)
         {
-            lst->costtotop = (lstsize - cost)+1;
+            lst->costtotop = lstsize - cost;
             lst->reverse = 1;
         }
+        else
+        {
+            lst->costtotop = cost;
+            lst->reverse = 0;
+        }
+        cost++;
         lst = lst->next;
     }
 }
