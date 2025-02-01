@@ -4,7 +4,8 @@ CFLAGS = -Wall -Wextra -Werror -g -I./includes
 
 TARGET = push_swap
 
-SRCS =	src/push_swap.c \
+SRCS =	src/main.c \
+	src/push_swap.c \
 	src/utils/libft/ft_atoi.c \
 	src/utils/libft/ft_lstadd_back_bonus.c \
 	src/utils/libft/ft_lstclear_bonus.c \
@@ -17,7 +18,9 @@ SRCS =	src/push_swap.c \
 	src/utils/ft_printf/ft_printf.c \
 	src/utils/calculations.c \
 	src/utils/push_swap_controls.c \
-	src/utils/sorting.c
+	src/utils/rotations_handler.c \
+	src/utils/sorting.c \
+	src/utils/validations.c
 
 OBJS = $(SRCS:.c=.o)
 

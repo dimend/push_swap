@@ -6,23 +6,31 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:16 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/29 17:10:55 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/01/17 19:42:04 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+void initialize_list(int argC, char *argV[], t_list **a)
+{
+    t_list *new_number;
+    int i;
+
+    i = 1;
+    while (i < argC)
+    {
+        new_number = ft_lstnew(ft_atoi(argV[i]));
+        ft_lstadd_back(a, new_number);
+        i++;
+    }
+}
+
 void set_closest(t_list *a, t_list *b)
 {
-    int closest_index;
-
-    closest_index = 0;
     while (a)
     {
-        closest_index = get_closest_index(a, b);
-        if (closest_index == 0)
-            closest_index = 1;
-        a->closest = closest_index;
+        a->closest = get_min_diff(a, b);
         a = a->next;
     }
 }
@@ -70,38 +78,8 @@ void final_sort(t_list **a)
     while (current && current->index != 1) 
         current = current->next;
 
-    while (current->costtotop > 0)
-    {
+    send_to_top(current, a, 'a');
+    if(current->reverse == 1)
         rotatelist(a, current->reverse, 'a');
-        current->costtotop--;
-    }
 }
 
-int main(int argC, char *argV[])
-{
-    t_list *a = NULL;
-    t_list *b = NULL;
-    t_list *new_number;
-    int i;
-
-    i = 1;
-    while (i < argC)
-    {
-        new_number = ft_lstnew(ft_atoi(argV[i]));
-        ft_lstadd_back(&a, new_number);
-        i++;
-    }
-    if (ft_lstsize(a) < 4)
-        small_sort(&a);
-    else
-    {
-        if(is_sorted(a) == 0)
-        {
-            set_index(a);
-            sort_to_b(&a, &b);
-            sort_to_a(&a, &b);
-            final_sort(&a);
-        }
-    }
-    ft_lstclear(&a);
-}

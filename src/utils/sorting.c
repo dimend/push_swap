@@ -8,18 +8,18 @@ void rotate_to_top(t_list *node_a, t_list *node_b, t_list **a, t_list **b)
 		if (node_a->reverse == 0)
 		{
 			rotate_both(a, b, 0);
-			node_a->costtotop--;
-			node_b->costtotop--;
+			set_costtotop(*a, *b);
 		}
 		else
 		{
 			rotate_both(a, b, 1);
-			node_a->costtotop--;
-			node_b->costtotop--;
+			set_costtotop(*a, *b);
 		}
 	}
-	send_to_top(node_a, a, 'a');
-	send_to_top(node_b, b, 'b');
+	if (handle_rotate_both(node_a, node_b, a, b))
+		return;
+	else
+		handle_rotation(node_a, node_b, a, b);
 }
 
 short int is_sorted(t_list *stack)
@@ -64,81 +64,59 @@ void small_sort(t_list **stack)
 
 void sort_to_b(t_list **a, t_list **b)
 {
+	t_list *temp_a;
+	t_list *temp_b;
 
+	while(ft_lstsize(*a) > 3 && ft_lstsize(*b) < 2)
+		pushfirst(a, b, 'b');
 	while(ft_lstsize(*a) > 3)
 	{
-		pushfirst(a, b, 'b');
+		set_closest(*a, *b);
+		set_costtotop(*a, *b);
+		temp_b = *b;
+		temp_a = find_cheapest(*a, *b);
+/* 		ft_printf("temp_a->index: %d\n", temp_a->index);
+		ft_printf("temp_a->costtotop: %d\n", temp_a->costtotop);
+		ft_printf("temp_a->reverse: %d\n", temp_a->reverse);
+		ft_printf("temp_a->closest: %d\n", temp_a->closest); */
+		while (temp_b->index != temp_a->closest)
+				temp_b = temp_b->next;
+/* 		ft_printf("temp_b->index: %d\n", temp_b->index);
+		ft_printf("temp_b->costtotop: %d\n", temp_b->costtotop);
+		ft_printf("temp_b->reverse: %d\n", temp_b->reverse); */
+		rotate_to_top(temp_a, temp_b, a, b);
+		if ((temp_a->costtotop == 0 && temp_b->costtotop == 0)
+			&& ft_lstsize(*a) > 3)
+			pushfirst(a, b, 'b');
 	}
-}
-
-t_list *get_min(t_list **a)
-{
-    t_list *temp;
-    t_list *min_node;
-    int min;
-
-    if (!a || !(*a))  // Handle empty list case
-        return (NULL);
-
-    temp = *a;
-    min_node = temp;   // Initialize min_node to the first node
-    min = temp->index; 
-
-    while (temp)
-    {
-        if (temp->index < min)
-        {
-            min = temp->index;
-            min_node = temp;
-        }
-        temp = temp->next;
-    }
-    return (min_node);
-}
-
-
-int b_new_highest(t_list *a, t_list *b)
-{
-    t_list *temp;
-
-    if (!a || !b)
-        return (0); // If A or B is empty, return false
-
-    temp = a;
-    while (temp)
-    {
-        if (b->index < temp->index)
-            return (0); // If B's header is not higher than some A elements, return false
-        temp = temp->next;
-    }
-    return (1); // If B's header is higher than all A elements, return true
+	small_sort(a);
 }
 
 void sort_to_a(t_list **a, t_list **b)
 {
 	t_list *lowest_diff;
-	t_list *min;
-
-	small_sort(a);
+	
 	while(ft_lstsize(*b) > 0)
 	{
+		lowest_diff = find_lowest_diff(a, b);
 		set_costtotop(*a, *b);
-		if(b_new_highest(*a,*b))
-		{
-			min = get_min(a);
-			lowest_diff = min;
-		}
-		else
-			lowest_diff = find_lowest_diff(a, b);
 
-		ft_printf("%d\n",lowest_diff->index);
-		ft_printf("%d\n",lowest_diff->costtotop);
-		ft_printf("%d\n",lowest_diff->reverse);
-		while(lowest_diff->costtotop > 1 && lowest_diff->reverse != 1)
+/* 		ft_printf("lowest_diff->index: %d\n", lowest_diff->index);
+		ft_printf("lowest_diff->costtotop: %d\n", lowest_diff->costtotop);
+		ft_printf("lowest_diff->reverse: %d\n", lowest_diff->reverse); */
+
+		send_to_top(lowest_diff, a, 'a');
+		if(lowest_diff->reverse == 1 && lowest_diff->costtotop == 0)
 		{
-			rotatelist(a, lowest_diff->reverse, 'a');
-			set_costtotop(*a,*b);
+			if((*b)->index < lowest_diff->index)
+				rotatelist(a, 1, 'a');
 		}
-			pushfirst(b, a, 'a');
+		if(lowest_diff->reverse == 0 && lowest_diff->costtotop == 0)
+		{
+			if((*b)->index > lowest_diff->index)
+				rotatelist(a, lowest_diff->reverse, 'a');
+		}
+		pushfirst(b, a, 'a');
 	}
 }
+
