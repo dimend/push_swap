@@ -19,3 +19,22 @@ short int check_duplicates(t_list *list)
     }
     return 0;
 }
+
+short int validate_args(char *args_str)
+{
+    int i;
+
+    i = 0; 
+    while(args_str[i] != '\0')
+    {
+        if ((args_str[i] < '0' || args_str[i] > '9') && args_str[i] != ' ')
+            return (0);
+        if(args_str[i] == ' ')
+        {
+            if (args_str[i + 1] < '0' || args_str[i + 1] > '9')
+                return (0);
+        }
+        i++;
+    }
+    return (1);
+}

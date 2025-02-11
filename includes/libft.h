@@ -34,6 +34,7 @@ void	ft_lstadd_front(t_list **lst, t_list *new);
 int		ft_lstsize(t_list *lst);
 int		ft_atoi(const char *str);
 int		ft_printf(const char *s, ...);
+size_t	ft_strlen(const char *input);
 void	swapfirsttwo(t_list **lst, char listname);
 void	pushfirst(t_list **srclst, t_list **destlst, char listname);
 void	rotatelist(t_list **srclst, short int direction, char listname);
@@ -57,11 +58,13 @@ void	ft_lstclear(t_list **lst);
 short int handle_rotate_both(t_list *node_a, t_list *node_b, t_list **a, t_list **b);
 void 	handle_rotation(t_list *node_a, t_list *node_b, t_list **a, t_list **b);
 void 	handle_send_to_top(t_list *node_a, t_list *node_b, t_list **a, t_list **b);
-void initialize_list(int argC, char *argV[], t_list **a);
+void 	initialize_list(char *args, t_list **a);
 short int	check_duplicates(t_list *list);
-void set_closest(t_list *a, t_list *b);
-void set_index(t_list *lst);
-void set_costtotop(t_list *a, t_list *b);
-void final_sort(t_list **a);
+void 	set_closest(t_list *a, t_list *b);
+void 	set_index(t_list *lst);
+void 	set_costtotop(t_list *a, t_list *b);
+void 	final_sort(t_list **a);
+char 	*ft_strtok(char *str, const char delim);
+short int validate_args(char *args_str);
 
 #endif

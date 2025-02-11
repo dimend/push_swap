@@ -75,15 +75,8 @@ void sort_to_b(t_list **a, t_list **b)
 		set_costtotop(*a, *b);
 		temp_b = *b;
 		temp_a = find_cheapest(*a, *b);
-/* 		ft_printf("temp_a->index: %d\n", temp_a->index);
-		ft_printf("temp_a->costtotop: %d\n", temp_a->costtotop);
-		ft_printf("temp_a->reverse: %d\n", temp_a->reverse);
-		ft_printf("temp_a->closest: %d\n", temp_a->closest); */
 		while (temp_b->index != temp_a->closest)
 				temp_b = temp_b->next;
-/* 		ft_printf("temp_b->index: %d\n", temp_b->index);
-		ft_printf("temp_b->costtotop: %d\n", temp_b->costtotop);
-		ft_printf("temp_b->reverse: %d\n", temp_b->reverse); */
 		rotate_to_top(temp_a, temp_b, a, b);
 		if ((temp_a->costtotop == 0 && temp_b->costtotop == 0)
 			&& ft_lstsize(*a) > 3)
@@ -100,11 +93,6 @@ void sort_to_a(t_list **a, t_list **b)
 	{
 		lowest_diff = find_lowest_diff(a, b);
 		set_costtotop(*a, *b);
-
-/* 		ft_printf("lowest_diff->index: %d\n", lowest_diff->index);
-		ft_printf("lowest_diff->costtotop: %d\n", lowest_diff->costtotop);
-		ft_printf("lowest_diff->reverse: %d\n", lowest_diff->reverse); */
-
 		send_to_top(lowest_diff, a, 'a');
 		if(lowest_diff->reverse == 1 && lowest_diff->costtotop == 0)
 		{
@@ -119,4 +107,3 @@ void sort_to_a(t_list **a, t_list **b)
 		pushfirst(b, a, 'a');
 	}
 }
-

@@ -12,17 +12,17 @@
 
 #include "libft.h"
 
-void initialize_list(int argC, char *argV[], t_list **a)
+void initialize_list(char *args, t_list **a)
 {
     t_list *new_number;
-    int i;
+    char *arg = NULL;
 
-    i = 1;
-    while (i < argC)
+    arg = ft_strtok(args, ' ');
+    while(arg != NULL)
     {
-        new_number = ft_lstnew(ft_atoi(argV[i]));
+        new_number = ft_lstnew(ft_atoi(arg));
         ft_lstadd_back(a, new_number);
-        i++;
+        arg = ft_strtok(NULL, ' ');
     }
 }
 

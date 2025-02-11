@@ -4,8 +4,10 @@ CFLAGS = -Wall -Wextra -Werror -g -I./includes
 
 TARGET = push_swap
 
+OBJ_PATH = obj/
+
 SRCS =	src/main.c \
-	src/push_swap.c \
+	src/utils/push_swap.c \
 	src/utils/libft/ft_atoi.c \
 	src/utils/libft/ft_lstadd_back_bonus.c \
 	src/utils/libft/ft_lstclear_bonus.c \
@@ -15,6 +17,7 @@ SRCS =	src/main.c \
 	src/utils/libft/ft_putchar_fd.c \
 	src/utils/libft/ft_putstr_fd.c \
 	src/utils/libft/ft_putnbr_fd.c \
+	src/utils/libft/ft_strlen.c \
 	src/utils/ft_printf/ft_printf.c \
 	src/utils/calculations.c \
 	src/utils/push_swap_controls.c \
@@ -22,13 +25,17 @@ SRCS =	src/main.c \
 	src/utils/sorting.c \
 	src/utils/validations.c
 
-OBJS = $(SRCS:.c=.o)
+OBJS = $(SRCS:src/%.c=$(OBJ_PATH)%.o)
 
 HEADERS = includes/libft.h
 
+$(OBJ_PATH)%.o: src/%.c $(HEADERS)
+	@mkdir -p $(dir $@)
+	$(CC) $(CFLAGS) -c $< -o $@
+
 all: $(TARGET)
 
-$(TARGET): $(OBJS) $(LIBFT)
+$(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
 
 %.o: %.c $(HEADERS)

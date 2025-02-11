@@ -50,7 +50,7 @@ void calc_costtotop(t_list *lst, int lstsize)
     cost = 0;
     while (lst)
     {
-        if (cost < lstsize / 2)
+        if ((cost-1) < lstsize / 2)
         {
             lst->costtotop = cost;
             lst->reverse = 0;
@@ -105,4 +105,3 @@ t_list *find_cheapest(t_list *a, t_list *b)
     }
     return cheapest_node;
 }
-
