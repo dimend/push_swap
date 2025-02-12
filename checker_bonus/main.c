@@ -1,4 +1,4 @@
-#include "ft_get_next_line/get_next_line.h"
+#include "gnl/get_next_line.h"
 #include "../includes/libft.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
