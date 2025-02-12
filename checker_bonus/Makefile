@@ -6,8 +6,8 @@ TARGET = ../checker
 OBJ_PATH = obj/
 
 SRCS = 	main.c \
-		ft_get_next_line/get_next_line.c \
-		ft_get_next_line/get_next_line_utils.c \
+		gnl/get_next_line.c \
+		gnl/get_next_line_utils.c \
 		../src/utils/push_swap.c \
 		../src/utils/libft/ft_atoi.c \
 		../src/utils/libft/ft_lstadd_back_bonus.c \
