@@ -24,7 +24,8 @@ void swapfirsttwo(t_list **lst, char listname)
         aux->next = (*lst)->next;
         (*lst)->next = aux;
     }
-    ft_printf("s%c\n", listname);
+    if(listname != '\0')
+        ft_printf("s%c\n", listname);
 }
 
 void pushfirst(t_list **srclst, t_list **destlst, char listname)
@@ -38,7 +39,8 @@ void pushfirst(t_list **srclst, t_list **destlst, char listname)
         first->next = *destlst;
         *destlst = first;
     }
-    ft_printf("p%c\n", listname);
+    if(listname != '\0')
+        ft_printf("p%c\n", listname);
 }
 
 void rotatelist(t_list **srclst, short int direction, char listname)
@@ -52,7 +54,7 @@ void rotatelist(t_list **srclst, short int direction, char listname)
     last = *srclst;
     if (direction == 0)
     {
-        if(listname != 'r') ft_printf("r%c\n", listname);
+        if(listname != 'r' && listname != '\0') ft_printf("r%c\n", listname);
         ft_lstadd_back(srclst, last);
         *srclst = (*srclst)->next;
         last->next = NULL;
@@ -64,17 +66,17 @@ void rotatelist(t_list **srclst, short int direction, char listname)
     }
     if (direction == 1)
     {
-        if(listname != 'r') ft_printf("rr%c\n", listname);
-        second_last->next = NULL;
+        if(listname != 'r' && listname != '\0') ft_printf("rr%c\n", listname);
+        second_last->next = '\0';
         ft_lstadd_front(srclst, last);
     }
 }
 
-void rotate_both(t_list **a, t_list **b, short int direction)
+void rotate_both(t_list **a, t_list **b, short int direction, char listname)
 {
-    rotatelist(a, direction, 'r');
-    rotatelist(b, direction, 'r');
-    if (direction == 1)
+    rotatelist(a, direction, listname);
+    rotatelist(b, direction, listname);
+    if (direction == 1 && listname != '\0')
         ft_printf("rrr\n");
     else
         ft_printf("rr\n");

@@ -7,6 +7,11 @@ void sort(t_list **a, t_list **b)
     sort_to_a(a, b);
     final_sort(a);
 }
+void free_all(t_list **a, t_list **b)
+{
+    ft_lstclear(a);
+    ft_lstclear(b);
+}
 
 int main(int argC, char *argV[])
 {
@@ -34,5 +39,6 @@ int main(int argC, char *argV[])
         }
     }
     free(args_str);
-    ft_lstclear(&a);
+    free_all(&a, &b);
 }
+

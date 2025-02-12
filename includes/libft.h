@@ -50,7 +50,7 @@ int is_avg(t_list *a);
 void	swapfirsttwo(t_list **lst, char listname);
 void	pushfirst(t_list **srclst, t_list **destlst, char listname);
 void	rotatelist(t_list **srclst, short int direction, char listname);
-void	rotate_both(t_list **a, t_list **b, short int direction);
+void	rotate_both(t_list **a, t_list **b, short int direction, char listname);
 //Push Swap
 void 	initialize_list(char *args, t_list **a);
 void 	set_closest(t_list *a, t_list *b);

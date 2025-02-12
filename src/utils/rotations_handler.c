@@ -38,12 +38,12 @@ void rotate_to_top(t_list *node_a, t_list *node_b, t_list **a, t_list **b)
 	{
 		if (node_a->reverse == 0)
 		{
-			rotate_both(a, b, 0);
+			rotate_both(a, b, 0, 'r');
 			set_costtotop(*a, *b);
 		}
 		else
 		{
-			rotate_both(a, b, 1);
+			rotate_both(a, b, 1, 'r');
 			set_costtotop(*a, *b);
 		}
 	}
