@@ -26,12 +26,12 @@ void initialize_list(char *args, t_list **a)
     }
 }
 
-void set_closest(t_list *a, t_list *b)
+void set_closest(t_list *b, t_list *a)
 {
-    while (a)
+    while (b)
     {
-        a->closest = get_min_diff(a, b);
-        a = a->next;
+        b->closest = get_min_diff(b, a);
+        b = b->next;
     }
 }
 

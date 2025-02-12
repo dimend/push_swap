@@ -1,43 +1,20 @@
 #include "libft.h"
 
-t_list *find_lowest_diff(t_list **a, t_list **b)
-{
-    t_list *lowest_diff = NULL;
-    t_list *temp_a = *a;
-    int smallest_diff = 2147483647;
-    int diff;
-
-    if (!a || !b || !*a || !*b)
-        return NULL;
-
-    while (temp_a) 
-    {
-        diff = (*b)->index - temp_a->index;
-        if (abs(diff) < smallest_diff) 
-        {
-            smallest_diff = abs(diff);
-            lowest_diff = temp_a;
-        }
-        temp_a = temp_a->next;
-    }
-    return lowest_diff;
-}
-
-int get_min_diff(t_list *a, t_list *b)
+int get_min_diff(t_list *b, t_list *a)
 {
     int diff;
     int min_diff = 2147483647;
     int closest_index = 0;
 
-    while (b)
+    while (a)
     {
-        diff = b->index - a->index;
+        diff = a->index - b->index;
         if (abs(diff) < min_diff)
         {
             min_diff = abs(diff);
-            closest_index = b->index;
+            closest_index = a->index;
         }
-        b = b->next;
+        a = a->next;
     }
 
     return closest_index;
@@ -104,4 +81,21 @@ t_list *find_cheapest(t_list *a, t_list *b)
         a = a->next;
     }
     return cheapest_node;
+}
+
+int is_avg(t_list *a)
+{
+	int avg;
+	int total;
+
+	total = 0;
+	avg = 0;
+    while (a)
+    {
+        avg = avg + a->index;
+		total++;
+        a = a->next;
+    }
+
+	return(avg/total);
 }

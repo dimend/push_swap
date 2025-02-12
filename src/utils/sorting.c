@@ -1,27 +1,5 @@
 #include "libft.h"
 
-void rotate_to_top(t_list *node_a, t_list *node_b, t_list **a, t_list **b)
-{
-	while ((node_a->costtotop > 0 && node_b->costtotop > 0)
-			&& node_a->reverse == node_b->reverse)
-	{
-		if (node_a->reverse == 0)
-		{
-			rotate_both(a, b, 0);
-			set_costtotop(*a, *b);
-		}
-		else
-		{
-			rotate_both(a, b, 1);
-			set_costtotop(*a, *b);
-		}
-	}
-	if (handle_rotate_both(node_a, node_b, a, b))
-		return;
-	else
-		handle_rotation(node_a, node_b, a, b);
-}
-
 short int is_sorted(t_list *stack)
 {
 	while(stack && stack->next)
@@ -64,46 +42,54 @@ void small_sort(t_list **stack)
 
 void sort_to_b(t_list **a, t_list **b)
 {
-	t_list *temp_a;
-	t_list *temp_b;
+	int avg;
+	int total;
+	int i;
 
-	while(ft_lstsize(*a) > 3 && ft_lstsize(*b) < 2)
-		pushfirst(a, b, 'b');
-	while(ft_lstsize(*a) > 3)
+	avg = is_avg(*a);
+	total = ft_lstsize(*a);
+	i = 0;
+	while (i < (total / 2))
 	{
-		set_closest(*a, *b);
-		set_costtotop(*a, *b);
-		temp_b = *b;
-		temp_a = find_cheapest(*a, *b);
-		while (temp_b->index != temp_a->closest)
-				temp_b = temp_b->next;
-		rotate_to_top(temp_a, temp_b, a, b);
-		if ((temp_a->costtotop == 0 && temp_b->costtotop == 0)
-			&& ft_lstsize(*a) > 3)
+		if ((*a)->index <= avg)
+		{
 			pushfirst(a, b, 'b');
+			i++;
+		}
+		else
+			rotatelist(a, 0, 'a');
 	}
+	while (ft_lstsize(*a) > 3)
+		pushfirst(a, b, 'b');
+
 	small_sort(a);
 }
 
 void sort_to_a(t_list **a, t_list **b)
 {
-	t_list *lowest_diff;
-	
-	while(ft_lstsize(*b) > 0)
+	t_list *temp_a;
+	t_list *temp_b;
+	int total;
+
+	temp_a = *a;
+	temp_b = *b;
+	total = ft_lstsize(temp_b);
+
+	while(total > 0)
 	{
-		lowest_diff = find_lowest_diff(a, b);
+		set_closest(*b, *a);
 		set_costtotop(*a, *b);
-		send_to_top(lowest_diff, a, 'a');
-		if(lowest_diff->reverse == 1 && lowest_diff->costtotop == 0)
+		temp_a = *a;
+		temp_b = find_cheapest(*b, *a);
+		while (temp_a->index != temp_b->closest)
+				temp_a = temp_a->next;
+		rotate_to_top(temp_a, temp_b, a, b);
+		if (temp_a->costtotop == 0 && temp_b->costtotop == 0)
 		{
-			if((*b)->index < lowest_diff->index)
-				rotatelist(a, 1, 'a');
+			pushfirst(b, a, 'a');
+			total--;
 		}
-		if(lowest_diff->reverse == 0 && lowest_diff->costtotop == 0)
-		{
-			if((*b)->index > lowest_diff->index)
-				rotatelist(a, lowest_diff->reverse, 'a');
-		}
-		pushfirst(b, a, 'a');
+			
 	}
 }
+

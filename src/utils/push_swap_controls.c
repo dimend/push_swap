@@ -79,12 +79,3 @@ void rotate_both(t_list **a, t_list **b, short int direction)
     else
         ft_printf("rr\n");
 }
-
-void send_to_top(t_list *node, t_list **stack, char listname)
-{
-    while(node->costtotop != 0)
-	{
-		rotatelist(stack, node->reverse, listname);
-		node->costtotop--;
-	}
-}
