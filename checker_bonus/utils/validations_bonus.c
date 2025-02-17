@@ -1,4 +1,4 @@
-#include "libft.h"
+#include "../checker_bonus.h"
 
 short int check_duplicates(t_list *list)
 {

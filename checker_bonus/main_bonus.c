@@ -1,5 +1,5 @@
-#include "gnl/get_next_line.h"
-#include "../includes/libft.h"
+#include "utils/gnl/get_next_line_bonus.h"
+#include "checker_bonus.h"
 
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
@@ -19,25 +19,25 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 void execute_command(char *command, t_list **a, t_list **b)
 {
         if (ft_strncmp(command, "sa", 2) == 0)
-            swapfirsttwo(a, '\0');
+            swapfirsttwo(a);
         else if (ft_strncmp(command, "sb", 2) == 0)
-            swapfirsttwo(b, '\0');
+            swapfirsttwo(b);
         else if (ft_strncmp(command, "pa", 2) == 0)
-            pushfirst(b, a, '\0');
+            pushfirst(b, a);
         else if (ft_strncmp(command, "pb", 2) == 0)
-            pushfirst(a, b, '\0');
+            pushfirst(a, b);
         else if (ft_strncmp(command, "ra", 2) == 0)
-            rotatelist(a, 0, '\0');
+            rotatelist(a, 0);
         else if (ft_strncmp(command, "rb", 2) == 0)
-            rotatelist(b, 0, '\0');
+            rotatelist(b, 0);
         else if (ft_strncmp(command, "rra", 3) == 0)
-            rotatelist(a, 1, '\0');
+            rotatelist(a, 1);
         else if (ft_strncmp(command, "rrb", 3) == 0)
-            rotatelist(b, 1, '\0');
+            rotatelist(b, 1);
         else if (ft_strncmp(command, "rr", 2) == 0)
-            rotate_both(a, b, 0, '\0');
+            rotate_both(a, b, 0);
         else if (ft_strncmp(command, "rrr", 3) == 0)
-            rotate_both(a, b, 1, '\0');
+            rotate_both(a, b, 1);
 }
 
 int main(int argC, char *argV[])
@@ -49,7 +49,7 @@ int main(int argC, char *argV[])
 
     args_str = concat_args(argV, argC);
     if (validate_args(args_str) == 0)
-        ft_printf("Error\n");
+        write(1,"Error\n",7);
     else
         initialize_list(args_str, &a);
     while ((command = get_next_line(0)) != NULL)
@@ -58,9 +58,9 @@ int main(int argC, char *argV[])
         free(command);
     }
     if (is_sorted(a) && b == NULL)
-        ft_printf("OK\n");
+        write(1,"OK\n",3);
     else
-        ft_printf("KO\n");
+        write(1,"KO\n",3);
     free(args_str);
     ft_lstclear(&a);
     ft_lstclear(&b);

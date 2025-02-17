@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap_controls.c                               :+:      :+:    :+:   */
+/*   push_swap_controls_bonus.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:12 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/17 14:25:02 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/17 15:29:57 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
-#include "libft.h"
+#include "../checker_bonus.h"
 
-void swapfirsttwo(t_list **lst, char listname)
+void swapfirsttwo(t_list **lst)
 {
     t_list *aux;
 
@@ -24,11 +24,9 @@ void swapfirsttwo(t_list **lst, char listname)
         aux->next = (*lst)->next;
         (*lst)->next = aux;
     }
-    if(listname != '\0')
-        ft_printf("s%c\n", listname);
 }
 
-void pushfirst(t_list **srclst, t_list **destlst, char listname)
+void pushfirst(t_list **srclst, t_list **destlst)
 {
     t_list *first;
     
@@ -39,11 +37,9 @@ void pushfirst(t_list **srclst, t_list **destlst, char listname)
         first->next = *destlst;
         *destlst = first;
     }
-    if(listname != '\0')
-        ft_printf("p%c\n", listname);
 }
 
-void rotatelist(t_list **srclst, short int direction, char listname)
+void rotatelist(t_list **srclst, short int direction)
 {
     t_list *last;
     t_list *second_last;
@@ -54,7 +50,6 @@ void rotatelist(t_list **srclst, short int direction, char listname)
     last = *srclst;
     if (direction == 0)
     {
-        if(listname != 'r' && listname != '\0') ft_printf("r%c\n", listname);
         ft_lstadd_back(srclst, last);
         *srclst = (*srclst)->next;
         last->next = NULL;
@@ -66,18 +61,13 @@ void rotatelist(t_list **srclst, short int direction, char listname)
     }
     if (direction == 1)
     {
-        if(listname != 'r' && listname != '\0') ft_printf("rr%c\n", listname);
         second_last->next = NULL;
         ft_lstadd_front(srclst, last);
     }
 }
 
-void rotate_both(t_list **a, t_list **b, short int direction, char listname)
+void rotate_both(t_list **a, t_list **b, short int direction)
 {
-    rotatelist(a, direction, listname);
-    rotatelist(b, direction, listname);
-    if (direction == 1 && listname != '\0')
-        ft_printf("rrr\n");
-    else
-        ft_printf("rr\n");
+    rotatelist(a, direction);
+    rotatelist(b, direction);
 }
