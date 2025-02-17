@@ -25,15 +25,23 @@ short int validate_args(char *args_str)
     int i;
 
     i = 0; 
-    while(args_str[i] != '\0')
+    while (args_str[i] != '\0')
     {
-        if ((args_str[i] < '0' || args_str[i] > '9') && (args_str[i] != ' ' && args_str[i] != '-'))
-            return (0);
-        if(args_str[i] == ' ' && args_str[i] == '-')
-            return (0);
+        if ((args_str[i] < '0' || args_str[i] > '9') 
+            && (args_str[i] != ' ' && args_str[i] != '-'))
+            return (1);
+        if (args_str[i] == '-')
+        {
+            if (i > 0 && args_str[i - 1] != ' ')
+                return (1);
+            if (args_str[i + 1] != '\0' && (args_str[i + 1] < '0' || args_str[i + 1] > '9'))
+                return (1);
+        }
+        if (i > 0 && args_str[i] == ' ' && args_str[i - 1] == ' ')
+            return (1);
         i++;
     }
-    return (1);
+    return (0);
 }
 
 char *ft_strcat(char *src, const char *new, size_t size_src, size_t size_new, short int last_arg)

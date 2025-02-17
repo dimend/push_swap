@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 19:39:49 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/17 19:43:23 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/17 19:36:49 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdint.h>
+# include <limits.h>
 
 typedef struct s_list
 {
@@ -52,7 +53,7 @@ void	pushfirst(t_list **srclst, t_list **destlst, char listname);
 void	rotatelist(t_list **srclst, short int direction, char listname);
 void	rotate_both(t_list **a, t_list **b, short int direction, char listname);
 //Push Swap
-void 	initialize_list(char *args, t_list **a);
+short int 	initialize_list(char *args, t_list **a);
 void 	set_closest(t_list *a, t_list *b);
 void 	set_index(t_list *lst);
 void 	set_costtotop(t_list *a, t_list *b);

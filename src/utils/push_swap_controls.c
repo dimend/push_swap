@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:12 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/17 14:25:02 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/17 16:22:50 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,12 @@ void rotatelist(t_list **srclst, short int direction, char listname)
     t_list *last;
     t_list *second_last;
 
-    if (*srclst == NULL || (*srclst)->next == NULL)
-        return;
     second_last = NULL;
     last = *srclst;
     if (direction == 0)
     {
-        if(listname != 'r' && listname != '\0') ft_printf("r%c\n", listname);
+        if(listname != 'r' && listname != '\0')
+            ft_printf("r%c\n", listname);
         ft_lstadd_back(srclst, last);
         *srclst = (*srclst)->next;
         last->next = NULL;
@@ -66,7 +65,8 @@ void rotatelist(t_list **srclst, short int direction, char listname)
     }
     if (direction == 1)
     {
-        if(listname != 'r' && listname != '\0') ft_printf("rr%c\n", listname);
+        if(listname != 'r' && listname != '\0')
+            ft_printf("rr%c\n", listname);
         second_last->next = NULL;
         ft_lstadd_front(srclst, last);
     }

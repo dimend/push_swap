@@ -3,9 +3,11 @@
 int get_min_diff(t_list *b, t_list *a)
 {
     int diff;
-    int min_diff = 2147483647;
-    int closest_index = 0;
-
+    int min_diff;
+    int closest_index;
+    
+    min_diff = INT_MAX;
+    closest_index = 0;
     while (a)
     {
         diff = a->index - b->index;
@@ -44,9 +46,11 @@ void calc_costtotop(t_list *lst, int lstsize)
 
 int calc_cheapest(t_list *a, t_list *b)
 {
-    int temp_cost = 2147483647;
-    t_list *temp_b = b;
+    int temp_cost;
+    t_list *temp_b;
 
+    temp_cost = INT_MAX;
+    temp_b = b;
     while (temp_b)
     {
         if ((temp_b->index == a->closest) || (a->index == 1 && a->costtotop == 0 && a->reverse == 0))
@@ -66,10 +70,12 @@ int calc_cheapest(t_list *a, t_list *b)
 
 t_list *find_cheapest(t_list *a, t_list *b)
 {
-    t_list *cheapest_node = NULL;
+    t_list *cheapest_node;
     int temp_cost;
-    int min_cost = 2147483647;
-
+    int min_cost;
+    
+    min_cost = INT_MAX;
+    cheapest_node = NULL;
     while (a)
     {
         temp_cost = calc_cheapest(a, b);

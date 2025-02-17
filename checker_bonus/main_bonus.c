@@ -48,10 +48,8 @@ int main(int argC, char *argV[])
     char *command;
 
     args_str = concat_args(argV, argC);
-    if (validate_args(args_str) == 0)
+    if (validate_args(args_str) == 1 || initialize_list(args_str, &a) == 1)
         write(1,"Error\n",7);
-    else
-        initialize_list(args_str, &a);
     while ((command = get_next_line(0)) != NULL)
     {
         execute_command(command, &a, &b);

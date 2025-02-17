@@ -5,6 +5,7 @@
 # include <unistd.h>
 # include <stdarg.h>
 # include <stdint.h>
+# include <limits.h>
 
 typedef struct s_list
 {
@@ -24,7 +25,7 @@ void	ft_lstclear(t_list **lst);
 t_list	*ft_lstnew(int content);
 size_t	ft_strlen(const char *input);
 //Push Swap
-void 	initialize_list(char *args, t_list **a);
+short int 	initialize_list(char *args, t_list **a);
 //Sorting
 short int	is_sorted(t_list *stack);
 //Push Swap Controls
