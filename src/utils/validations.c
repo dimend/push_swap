@@ -28,9 +28,9 @@ short int validate_args(char *args_str)
     while (args_str[i] != '\0')
     {
         if ((args_str[i] < '0' || args_str[i] > '9') 
-            && (args_str[i] != ' ' && args_str[i] != '-'))
+            && (args_str[i] != ' ' && args_str[i] != '-' && args_str[i] != '+'))
             return (1);
-        if (args_str[i] == '-')
+        if (args_str[i] == '-' || args_str[i] == '+')
         {
             if (i > 0 && args_str[i - 1] != ' ')
                 return (1);

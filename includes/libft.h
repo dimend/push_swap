@@ -30,7 +30,7 @@ typedef struct s_list
 }	t_list;
 
 //Libft
-int		ft_atoi(const char *str);
+long		ft_atoi(const char *str);
 void	ft_lstadd_back(t_list **lst, t_list *new);
 void	ft_lstadd_front(t_list **lst, t_list *new);
 void	ft_lstclear(t_list **lst);
@@ -71,5 +71,6 @@ short int	check_duplicates(t_list *list);
 short int validate_args(char *args_str);
 char 	*ft_strtok(char *str, const char delim);
 char *concat_args(char *argV[], int argC);
+int count_max_digits();
 
 #endif

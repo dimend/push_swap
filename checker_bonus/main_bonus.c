@@ -62,5 +62,5 @@ int main(int argC, char *argV[])
     free(args_str);
     ft_lstclear(&a);
     ft_lstclear(&b);
-    return 0;
+    return (0);
 }

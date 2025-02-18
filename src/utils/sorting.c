@@ -91,3 +91,4 @@ void sort_to_a(t_list **a, t_list **b)
 		}
 			
 	}
+}

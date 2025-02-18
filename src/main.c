@@ -1,5 +1,21 @@
 #include "libft.h"
 
+int count_max_digits()
+{
+    int max_int;
+    int max_int_digits;
+
+    max_int = INT_MAX;
+    max_int_digits = 0;
+    while(max_int != 0)
+    {
+        max_int /= 10;
+        max_int_digits++;
+    }
+
+    return (max_int_digits);
+}
+
 void sort(t_list **a, t_list **b)
 {
     set_index(*a);
@@ -7,6 +23,7 @@ void sort(t_list **a, t_list **b)
     sort_to_a(a, b);
     final_sort(a);
 }
+
 void free_all(t_list **a, t_list **b)
 {
     ft_lstclear(a);
@@ -40,4 +57,3 @@ int main(int argC, char *argV[])
     free(args_str);
     free_all(&a, &b);
 }
-

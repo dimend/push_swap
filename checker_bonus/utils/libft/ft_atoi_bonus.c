@@ -12,9 +12,9 @@
 
 #include "../../checker_bonus.h"
 
-int	ft_atoi(const char *str)
+long	ft_atoi(const char *str)
 {
-	int	ret;
+	long	ret;
 	int	sign;
 	int	i;
 

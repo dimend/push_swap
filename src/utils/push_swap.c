@@ -17,12 +17,15 @@ short int initialize_list(char *args, t_list **a)
     t_list *new_number;
     char *arg = NULL;
     long number;
+    int max_int_digits;
 
+    max_int_digits = count_max_digits();
     arg = ft_strtok(args, ' ');
     while(arg != NULL)
     {
         number = ft_atoi(arg);
-        if (number > INT_MAX)
+        if (number > INT_MAX || number < INT_MIN 
+            || (int)ft_strlen(arg) > max_int_digits + 1)
             return (1);
         new_number = ft_lstnew((int)number);
         if(new_number == NULL)
