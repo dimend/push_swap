@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:36:09 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/19 17:32:32 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 18:13:23 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return (0);
 }
 
-void	execute_command(char *command, t_list **a, t_list **b)
+short int	execute_command(char *command, t_list **a, t_list **b)
 {
 	if (ft_strncmp(command, "sa", 2) == 0)
 		swapfirsttwo(a);
@@ -50,6 +50,9 @@ void	execute_command(char *command, t_list **a, t_list **b)
 		rotate_both(a, b, 0);
 	else if (ft_strncmp(command, "rrr", 3) == 0)
 		rotate_both(a, b, 1);
+	else
+		return (1);
+	return (0);
 }
 
 void	free_all(t_list **a, t_list **b, char *args)
@@ -59,17 +62,20 @@ void	free_all(t_list **a, t_list **b, char *args)
 	free(args);
 }
 
-void	read_and_execute(t_list **a, t_list **b)
+short int	read_and_execute(t_list **a, t_list **b)
 {
 	char	*command;
 
 	command = get_next_line(0);
 	while (command != NULL)
 	{
-		execute_command(command, a, b);
-		command = get_next_line(0);
+		if (execute_command(command, a, b) == 0)
+			command = get_next_line(0);
+		else
+			return (1);
 	}
 	free(command);
+	return (0);
 }
 
 int	main(int argC, char *argV[])
@@ -85,12 +91,16 @@ int	main(int argC, char *argV[])
 		|| check_duplicates(a) == 1)
 		write(1, "Error\n", 7);
 	else
-	{	
-		read_and_execute(&a, &b);
-		if (is_sorted(a) && b == NULL)
-			write(1, "OK\n", 3);
+	{
+		if (read_and_execute(&a, &b) == 1)
+			write(1, "Error\n", 7);
 		else
-			write(1, "KO\n", 3);
+		{
+			if (is_sorted(a) && b == NULL)
+				write(1, "OK\n", 3);
+			else
+				write(1, "KO\n", 3);
+		}
 	}
 	free_all(&a, &b, args_str);
 	return (0);
