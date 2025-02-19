@@ -6,17 +6,17 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:55:01 by dimendon          #+#    #+#             */
-/*   Updated: 2024/11/11 16:55:10 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:06:43 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 long	ft_atoi(const char *str)
 {
 	long	ret;
-	int	sign;
-	int	i;
+	int		sign;
+	int		i;
 
 	i = 0;
 	ret = 0;

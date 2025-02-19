@@ -6,11 +6,11 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 18:45:53 by dimendon          #+#    #+#             */
-/*   Updated: 2025/01/17 19:38:34 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:06:35 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 t_list	*ft_lstnew(int content)
 {

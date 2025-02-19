@@ -6,19 +6,18 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/13 12:47:02 by dimendon          #+#    #+#             */
-/*   Updated: 2024/11/13 18:33:37 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:06:41 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 void	ft_lstadd_back(t_list **lst, t_list *new)
 {
 	t_list	*last_node;
 
 	if (!lst || !new)
-		return;
-
+		return ;
 	if (*lst == NULL)
 		*lst = new;
 	else

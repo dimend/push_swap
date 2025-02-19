@@ -6,11 +6,11 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/15 16:33:18 by dimendon          #+#    #+#             */
-/*   Updated: 2024/11/19 14:51:22 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:06:47 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 static void	putnbr_unsigned_fd(unsigned int n, int fd, int *count)
 {

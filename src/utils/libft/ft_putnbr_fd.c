@@ -6,11 +6,11 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:03:48 by dimendon          #+#    #+#             */
-/*   Updated: 2024/11/19 14:39:04 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:06:28 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 static void	ft_printbackwards(char *converted, int fd, int *count)
 {

@@ -6,11 +6,11 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/12 13:04:02 by dimendon          #+#    #+#             */
-/*   Updated: 2024/11/19 14:33:35 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:06:31 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 void	ft_putchar_fd(char c, int fd, int *count)
 {

@@ -1,15 +1,27 @@
-#include "libft.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotations_handler.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/02/19 15:16:49 by dimendon          #+#    #+#             */
+/*   Updated: 2025/02/19 16:06:05 by dimendon         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-void send_to_top(t_list *node, t_list **stack, char listname)
+#include "push_swap.h"
+
+void	send_to_top(t_list *node, t_list **stack, char listname)
 {
-    while(node->costtotop != 0)
+	while (node->costtotop != 0)
 	{
 		rotatelist(stack, node->reverse, listname);
 		node->costtotop--;
 	}
 }
 
-void handle_rotation(t_list *node_a, t_list *node_b, t_list **a, t_list **b)
+void	handle_rotation(t_list *node_a, t_list *node_b, t_list **a, t_list **b)
 {
 	if (node_a->index > node_b->index)
 	{
@@ -24,17 +36,17 @@ void handle_rotation(t_list *node_a, t_list *node_b, t_list **a, t_list **b)
 	{
 		send_to_top(node_a, a, 'a');
 		send_to_top(node_b, b, 'b');
-		if(node_a->reverse == 0)
+		if (node_a->reverse == 0)
 			rotatelist(a, node_a->reverse, 'a');
 		if (node_b->reverse == 1)
 			rotatelist(b, node_b->reverse, 'b');
 	}
 }
 
-void rotate_to_top(t_list *node_a, t_list *node_b, t_list **a, t_list **b)
+void	rotate_to_top(t_list *node_a, t_list *node_b, t_list **a, t_list **b)
 {
 	while ((node_a->costtotop > 0 && node_b->costtotop > 0)
-			&& node_a->reverse == node_b->reverse)
+		&& node_a->reverse == node_b->reverse)
 	{
 		if (node_a->reverse == 0)
 		{

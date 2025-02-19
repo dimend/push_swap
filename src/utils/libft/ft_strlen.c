@@ -6,11 +6,11 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/11 16:47:53 by dimendon          #+#    #+#             */
-/*   Updated: 2024/11/11 16:55:48 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 16:06:22 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "push_swap.h"
 
 size_t	ft_strlen(const char *input)
 {
