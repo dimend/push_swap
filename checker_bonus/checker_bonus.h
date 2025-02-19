@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:46:04 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/19 15:46:05 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:12:21 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void				swapfirsttwo(t_list **lst);
 void				pushfirst(t_list **srclst, t_list **destlst);
 void				rotatelist(t_list **srclst, short int direction);
 void				rotate_both(t_list **a, t_list **b, short int direction);
+void				swap_both(t_list **a, t_list **b);
 // Validations
 short int			check_duplicates(t_list *list);
 short int			validate_args(char *args_str);

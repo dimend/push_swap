@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:16:55 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/19 17:00:44 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:27:40 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,6 @@ short int	validate_args(char *args_str)
 	int	i;
 
 	i = 0;
-	if (args_str[i] == '\0')
-		return (1);
 	while (args_str[i] != '\0')
 	{
 		if ((args_str[i] < '0' || args_str[i] > '9') && (args_str[i] != ' '
@@ -48,8 +46,8 @@ short int	validate_args(char *args_str)
 		{
 			if (i > 0 && args_str[i - 1] != ' ')
 				return (1);
-			if (args_str[i + 1] != '\0'
-				&& (args_str[i + 1] < '0' || args_str[i + 1] > '9'))
+			if (args_str[i + 1] == '\0'
+				|| (args_str[i + 1] < '0' || args_str[i + 1] > '9'))
 				return (1);
 		}
 		if ((args_str[i] == ' ' && args_str[i + 1] == ' ')

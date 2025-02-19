@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/11 16:38:12 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/17 15:29:57 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:12:01 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	rotatelist(t_list **srclst, short int direction)
 {
 	t_list	*last;
 	t_list	*second_last;
-
 	if (*srclst == NULL || (*srclst)->next == NULL)
 		return ;
 	second_last = NULL;
@@ -69,4 +68,10 @@ void	rotate_both(t_list **a, t_list **b, short int direction)
 {
 	rotatelist(a, direction);
 	rotatelist(b, direction);
+}
+
+void	swap_both(t_list **a, t_list **b)
+{
+	swapfirsttwo(a);
+	swapfirsttwo(b);
 }

@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:16:58 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/19 16:05:48 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/19 22:24:52 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,11 +52,11 @@ int	main(int argC, char *argV[])
 	b = NULL;
 	args_str = concat_args(argV, argC);
 	if (validate_args(args_str) == 1)
-		ft_printf("Error\n");
+		write(2,"Error\n",6);
 	else
 	{
 		if (initialize_list(args_str, &a) == 1 || check_duplicates(a) == 1)
-			ft_printf("Error\n");
+			write(2,"Error\n",6);
 		else
 		{
 			if (ft_lstsize(a) < 4)
