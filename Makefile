@@ -1,4 +1,4 @@
-CC = gcc
+CC = cc
 
 CFLAGS = -Wall -Wextra -Werror -g -I./includes -I./
 
@@ -43,7 +43,7 @@ BONUS_SRCS = checker_bonus/main_bonus.c \
 OBJS = $(SRCS:src/%.c=$(OBJ_PATH)%.o)
 BONUS_OBJS = $(BONUS_SRCS:checker_bonus/%.c=$(OBJ_PATH)%.o)
 
-HEADERS = includes/libft.h
+HEADERS = includes/push_swap.h
 
 $(OBJ_PATH)%.o: src/%.c $(HEADERS)
 	@mkdir -p $(dir $@)
