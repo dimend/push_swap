@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:45:59 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/19 19:14:23 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:45:25 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ short int	validate_args(char *args_str)
 	int	i;
 
 	i = 0;
-	if (args_str[i] == '\0')
+	if (args_str[i] == '\0' || args_str[i] == ' ' || (args_str[i] == '0'
+			&& (args_str[i + 1] != ' ' && args_str[i + 1] != '\0')))
 		return (1);
 	while (args_str[i] != '\0')
 	{
@@ -46,10 +47,8 @@ short int	validate_args(char *args_str)
 			return (1);
 		if (args_str[i] == '-' || args_str[i] == '+')
 		{
-			if (i > 0 && args_str[i - 1] != ' ')
-				return (1);
-			if (args_str[i + 1] == '\0'
-				|| (args_str[i + 1] < '0' || args_str[i + 1] > '9'))
+			if ((i > 0 && args_str[i - 1] != ' ') || (args_str[i + 1] == '\0'
+					|| (args_str[i + 1] < '0' || args_str[i + 1] > '9')))
 				return (1);
 		}
 		if ((args_str[i] == ' ' && args_str[i + 1] == ' ')
@@ -105,6 +104,11 @@ char	*concat_args(char *argV[], int argC)
 		if (i == argC - 1)
 			last_arg = 1;
 		args_str = ft_strcat(args_str, argV[i], last_arg);
+		if (args_str == NULL)
+		{
+			free(args_str);
+			return (NULL);
+		}
 		i++;
 	}
 	return (args_str);

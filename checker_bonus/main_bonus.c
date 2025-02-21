@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:36:09 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/19 22:24:40 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:52:19 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ short int	execute_command(char *command, t_list **a, t_list **b)
 	else if (ft_strncmp(command, "sb", 2) == 0)
 		swapfirsttwo(b);
 	else if (ft_strncmp(command, "ss", 2) == 0)
-		swap_both(a,b);
+		swap_both(a, b);
 	else if (ft_strncmp(command, "pa", 2) == 0)
 		pushfirst(b, a);
 	else if (ft_strncmp(command, "pb", 2) == 0)
@@ -92,20 +92,21 @@ int	main(int argC, char *argV[])
 	a = NULL;
 	b = NULL;
 	args_str = concat_args(argV, argC);
-	if (validate_args(args_str) == 1 || initialize_list(args_str, &a) == 1
-		|| check_duplicates(a) == 1)
-		write(2,"Error\n",6);
+	if (args_str == NULL || validate_args(args_str) == 1
+		|| initialize_list(args_str, &a) == 1 || check_duplicates(a) == 1
+		|| read_and_execute(&a, &b) == 1)
+	{
+		write(2, "Error\n", 6);
+		free_all(&a, &b, args_str);
+		return (1);
+	}
 	else
 	{
-		if (read_and_execute(&a, &b) == 1)
-			write(2,"Error\n",6);
+		if (is_sorted(a) && b == NULL)
+			write(1, "OK\n", 2);
 		else
-		{
-			if (is_sorted(a) && b == NULL)
-				write(1, "OK\n", 2);
-			else
-				write(1, "KO\n", 2);
-		}
+			write(1, "KO\n", 2);
 	}
+	free_all(&a, &b, args_str);
 	return (0);
 }

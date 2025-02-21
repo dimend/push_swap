@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:16:58 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/19 22:24:52 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/02/21 16:55:57 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,15 @@ int	count_max_digits(void)
 
 void	sort(t_list **a, t_list **b)
 {
-	set_index(*a);
-	sort_to_b(a, b);
-	sort_to_a(a, b);
-	final_sort(a);
+	if (ft_lstsize(*a) < 4)
+		small_sort(a);
+	else
+	{
+		set_index(*a);
+		sort_to_b(a, b);
+		sort_to_a(a, b);
+		final_sort(a);
+	}
 }
 
 void	free_all(t_list **a, t_list **b, char *args)
@@ -51,22 +56,18 @@ int	main(int argC, char *argV[])
 	a = NULL;
 	b = NULL;
 	args_str = concat_args(argV, argC);
-	if (validate_args(args_str) == 1)
-		write(2,"Error\n",6);
+	if (args_str == NULL || validate_args(args_str) == 1
+		|| initialize_list(args_str, &a) == 1 || check_duplicates(a) == 1)
+	{
+		write(2, "Error\n", 6);
+		free_all(&a, &b, args_str);
+		return (1);
+	}
 	else
 	{
-		if (initialize_list(args_str, &a) == 1 || check_duplicates(a) == 1)
-			write(2,"Error\n",6);
-		else
-		{
-			if (ft_lstsize(a) < 4)
-				small_sort(&a);
-			else
-			{
-				if (is_sorted(a) == 0)
-					sort(&a, &b);
-			}
-		}
+		if (is_sorted(a) == 0)
+			sort(&a, &b);
 	}
 	free_all(&a, &b, args_str);
+	return (0);
 }
