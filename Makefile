@@ -68,7 +68,7 @@ $(CHECKER): $(BONUS_OBJS)
 bonus: $(CHECKER)
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS)
+	rm -f $(OBJS) $(BONUS_OBJS) -r $(OBJ_PATH)
 
 fclean: clean
 	rm -f $(TARGET) $(CHECKER)
