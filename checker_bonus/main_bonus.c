@@ -6,7 +6,7 @@
 /*   By: dimendon <dimendon@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/19 15:36:09 by dimendon          #+#    #+#             */
-/*   Updated: 2025/02/21 16:52:19 by dimendon         ###   ########.fr       */
+/*   Updated: 2025/03/06 15:13:41 by dimendon         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,9 +92,9 @@ int	main(int argC, char *argV[])
 	a = NULL;
 	b = NULL;
 	args_str = concat_args(argV, argC);
-	if (args_str == NULL || validate_args(args_str) == 1
+	if ((args_str == NULL || validate_args(args_str) == 1
 		|| initialize_list(args_str, &a) == 1 || check_duplicates(a) == 1
-		|| read_and_execute(&a, &b) == 1)
+		|| read_and_execute(&a, &b) == 1) && argC > 1)
 	{
 		write(2, "Error\n", 6);
 		free_all(&a, &b, args_str);
@@ -102,10 +102,10 @@ int	main(int argC, char *argV[])
 	}
 	else
 	{
-		if (is_sorted(a) && b == NULL)
-			write(1, "OK\n", 2);
-		else
-			write(1, "KO\n", 2);
+		if (is_sorted(a) && b == NULL && argC > 1)
+			write(1, "OK\n", 3);
+		else if (argC > 1)
+			write(1, "KO\n", 3);
 	}
 	free_all(&a, &b, args_str);
 	return (0);
